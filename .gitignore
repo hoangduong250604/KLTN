@@ -1,0 +1,70 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+.venv/
+venv/
+ENV/
+env/
+
+# Datasets (too large)
+KITTI/
+BDD100K/
+video_data/
+results/
+videos/
+
+# Third-party / External projects
+open-adas-master/
+onnxruntime/
+
+# Model files (large binary files)
+*.pt
+*.onnx
+*.pth
+*.weights
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+CMakeFiles/
+cmake_install.cmake
+Makefile
+fcw-system/build/
+
+# Debug
+debug_trace.txt
+*.log
+
+# Temporary files
+*.tmp
+*.bak
