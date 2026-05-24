@@ -272,7 +272,8 @@ bool YOLOv8Detector::loadONNX(const std::string& onnxPath) {
 
     try {
         Ort::SessionOptions sessionOptions;
-        sessionOptions.SetIntraOpNumThreads(4);
+        sessionOptions.SetIntraOpNumThreads(4);  // i5-1155G7: 4 physical cores
+        sessionOptions.SetInterOpNumThreads(2);  // Moderate inter-op parallelism
         sessionOptions.SetGraphOptimizationLevel(GraphOptimizationLevel::ORT_ENABLE_ALL);
 
         // Convert path to wide string for Windows

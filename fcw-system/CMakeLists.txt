@@ -53,8 +53,13 @@ endif()
 # ============================================================================
 # Backend Options
 # ============================================================================
-option(USE_TENSORRT "Enable TensorRT backend (requires CUDA + TensorRT)" OFF)
-option(USE_ONNXRUNTIME "Enable ONNX Runtime backend" ON)
+if(PLATFORM_JETSON)
+    option(USE_TENSORRT "Enable TensorRT backend (requires CUDA + TensorRT)" ON)
+    option(USE_ONNXRUNTIME "Enable ONNX Runtime backend" OFF)
+else()
+    option(USE_TENSORRT "Enable TensorRT backend (requires CUDA + TensorRT)" OFF)
+    option(USE_ONNXRUNTIME "Enable ONNX Runtime backend" ON)
+endif()
 
 # ============================================================================
 # ONNX Runtime
@@ -86,16 +91,22 @@ if(USE_TENSORRT)
 
     # CUDA
     find_path(CUDA_INCLUDE_DIR cuda_runtime_api.h
-        HINTS ${CUDA_TOOLKIT_ROOT_DIR} "C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v13.2"
+        HINTS ${CUDA_TOOLKIT_ROOT_DIR}
+              /usr/local/cuda
+              "C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v13.2"
         PATH_SUFFIXES include
     )
     find_library(CUDA_RUNTIME_LIBRARY NAMES cudart
-        HINTS ${CUDA_TOOLKIT_ROOT_DIR} "C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v13.2"
+        HINTS ${CUDA_TOOLKIT_ROOT_DIR}
+              /usr/local/cuda
+              "C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v13.2"
         PATH_SUFFIXES lib lib64 lib/x64
     )
     if(NOT CUDA_RUNTIME_LIBRARY)
         find_library(CUDA_RUNTIME_LIBRARY NAMES cudart_static
-            HINTS ${CUDA_TOOLKIT_ROOT_DIR} "C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v13.2"
+            HINTS ${CUDA_TOOLKIT_ROOT_DIR}
+                  /usr/local/cuda
+                  "C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v13.2"
             PATH_SUFFIXES lib lib64 lib/x64
         )
     endif()
@@ -116,7 +127,7 @@ else()
 endif()
 
 # OpenCV (with CUDA support preferred)
-find_package(OpenCV 4.5 REQUIRED
+find_package(OpenCV 4.1 REQUIRED
     COMPONENTS core imgproc imgcodecs videoio highgui dnn video
 )
 message(STATUS "OpenCV Version: ${OpenCV_VERSION}")
@@ -127,23 +138,34 @@ include_directories(${OpenCV_INCLUDE_DIRS})
 if(USE_TENSORRT)
 find_path(TENSORRT_INCLUDE_DIR NvInfer.h
     HINTS ${TENSORRT_ROOT} ${CUDA_TOOLKIT_ROOT_DIR}
+          /usr/include/aarch64-linux-gnu
+          /usr/include/x86_64-linux-gnu
+          /usr/include
     PATH_SUFFIXES include
 )
 # TensorRT libraries - support both Linux (nvinfer) and Windows (nvinfer_10) naming
 find_library(TENSORRT_LIBRARY_INFER NAMES nvinfer nvinfer_10
     HINTS ${TENSORRT_ROOT} ${CUDA_TOOLKIT_ROOT_DIR}
+          /usr/lib/aarch64-linux-gnu
+          /usr/lib/x86_64-linux-gnu
     PATH_SUFFIXES lib lib64 lib/x86_64-linux-gnu
 )
 find_library(TENSORRT_LIBRARY_INFER_PLUGIN NAMES nvinfer_plugin nvinfer_plugin_10
     HINTS ${TENSORRT_ROOT} ${CUDA_TOOLKIT_ROOT_DIR}
+          /usr/lib/aarch64-linux-gnu
+          /usr/lib/x86_64-linux-gnu
     PATH_SUFFIXES lib lib64 lib/x86_64-linux-gnu
 )
 find_library(TENSORRT_LIBRARY_PARSERS NAMES nvparsers nvparsers_10
     HINTS ${TENSORRT_ROOT} ${CUDA_TOOLKIT_ROOT_DIR}
+          /usr/lib/aarch64-linux-gnu
+          /usr/lib/x86_64-linux-gnu
     PATH_SUFFIXES lib lib64 lib/x86_64-linux-gnu
 )
 find_library(TENSORRT_LIBRARY_ONNX NAMES nvonnxparser nvonnxparser_10
     HINTS ${TENSORRT_ROOT} ${CUDA_TOOLKIT_ROOT_DIR}
+          /usr/lib/aarch64-linux-gnu
+          /usr/lib/x86_64-linux-gnu
     PATH_SUFFIXES lib lib64 lib/x86_64-linux-gnu
 )
 
@@ -167,12 +189,17 @@ else()
 endif()
 endif()  # USE_TENSORRT
 
-# yaml-cpp for config parsing (optional for now, needed for reading YAML configs)
+# yaml-cpp for config parsing
 find_package(yaml-cpp QUIET)
 if(yaml-cpp_FOUND)
     message(STATUS "yaml-cpp found: ${YAML_CPP_INCLUDE_DIR}")
 else()
-    message(STATUS "yaml-cpp not found - YAML config parsing will be unavailable. Install via: vcpkg install yaml-cpp:x64-windows")
+    message(STATUS "yaml-cpp not found locally - using third_party/yaml-cpp")
+    set(YAML_CPP_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+    set(YAML_CPP_BUILD_TOOLS OFF CACHE BOOL "" FORCE)
+    set(YAML_CPP_BUILD_CONTRIB OFF CACHE BOOL "" FORCE)
+    add_subdirectory(third_party/yaml-cpp)
+    set(yaml-cpp_FOUND TRUE)
 endif()
 
 # Threads
@@ -194,7 +221,9 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/src/risk
     ${CMAKE_SOURCE_DIR}/src/warning
     ${CMAKE_SOURCE_DIR}/src/visualization
+    ${CMAKE_SOURCE_DIR}/src/traffic
     ${CMAKE_SOURCE_DIR}/src/utils
+    ${CMAKE_SOURCE_DIR}/src/gui
 )
 
 # ============================================================================
@@ -256,6 +285,14 @@ set(VISUALIZATION_SOURCES
     src/visualization/visualization.cpp
 )
 
+set(TRAFFIC_SOURCES
+    src/traffic/traffic_sign_processor.cpp
+)
+
+set(GUI_SOURCES
+    src/gui/gui_app.cpp
+)
+
 set(CORE_SOURCES
     src/core/pipeline.cpp
     src/core/threaded_pipeline.cpp
@@ -273,6 +310,8 @@ set(ALL_SOURCES
     ${RISK_SOURCES}
     ${WARNING_SOURCES}
     ${VISUALIZATION_SOURCES}
+    ${TRAFFIC_SOURCES}
+    ${GUI_SOURCES}
     ${CORE_SOURCES}
 )
 
@@ -299,7 +338,7 @@ endif()
 
 # Add Windows-specific libraries
 if(WIN32)
-    target_link_libraries(fcw_lib shlwapi)
+    target_link_libraries(fcw_lib shlwapi winmm)
 endif()
 
 # Conditionally link yaml-cpp if found

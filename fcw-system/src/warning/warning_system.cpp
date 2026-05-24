@@ -19,6 +19,8 @@
 
 #ifdef _WIN32
   #include <windows.h>
+  #include <mmsystem.h>
+  #pragma comment(lib, "winmm.lib")
 #endif
 
 namespace fcw {
@@ -37,16 +39,16 @@ WarningSystem::~WarningSystem() {
 void WarningSystem::pushWarning(const RiskAssessment& risk) {
     currentLevel_.store(risk.level);
 
-    if (risk.level == RiskLevel::SAFE) return;
-    if (!config_.audioEnabled || muted_.load()) return;
-
-    // Queue for warning thread
+    // Always notify thread (even for SAFE, so it can stop audio)
     {
         std::lock_guard<std::mutex> lock(warningMutex_);
         latestRisk_ = risk;
         hasNewRisk_ = true;
     }
     warningCv_.notify_one();
+
+    if (risk.level == RiskLevel::SAFE) return;
+    if (!config_.audioEnabled || muted_.load()) return;
 
     // If thread not running, play inline (fallback for single-threaded Pipeline)
     if (!threadRunning_.load()) {
@@ -113,13 +115,33 @@ void WarningSystem::warningThreadFunc() {
             });
 
             if (threadShouldStop_.load()) break;
-            if (!hasNewRisk_) continue;
+            if (!hasNewRisk_) {
+                // No new data — check if audio linger expired
+                if (audioPlaying_) {
+                    int64_t now = nowMs();
+                    if (now - lastActiveTimeMs_ > kAudioLingerMs) {
+#ifdef _WIN32
+                        PlaySoundA(NULL, NULL, 0);
+#endif
+                        audioPlaying_ = false;
+                    }
+                }
+                continue;
+            }
 
             risk = latestRisk_;
             hasNewRisk_ = false;
         }
 
-        if (risk.level == RiskLevel::SAFE) continue;
+        if (risk.level == RiskLevel::SAFE) {
+            // Don't stop immediately — let audio linger
+            // lastActiveTimeMs_ was set when last non-SAFE arrived
+            // The timeout check above will stop it after kAudioLingerMs
+            continue;
+        }
+
+        // Active risk — update last active time
+        lastActiveTimeMs_ = nowMs();
         if (muted_.load()) continue;
 
         // Cooldown check (per risk level)
@@ -139,6 +161,7 @@ void WarningSystem::warningThreadFunc() {
 
         // Play audio
         playAudio(risk.level);
+        audioPlaying_ = true;
 
         LOG_WARNING("Warning", "ALERT [" + riskLevelToString(risk.level) + "] "
                     "Track:" + std::to_string(risk.trackId) +
@@ -154,33 +177,23 @@ void WarningSystem::warningThreadFunc() {
 // ==============================================================================
 void WarningSystem::playAudio(RiskLevel level) {
 #ifdef _WIN32
-    // Windows: Use Beep() for instant tonal alerts
-    // Different frequencies/durations per risk level
-    int freq = 0, dur = 0;
+    // Windows: Use PlaySound() with .wav files (async, non-blocking)
+    std::string soundFile;
     switch (level) {
-        case RiskLevel::CRITICAL:
-            freq = config_.criticalFreqHz;
-            dur = config_.criticalDurationMs;
-            break;
-        case RiskLevel::DANGER:
-            freq = config_.dangerFreqHz;
-            dur = config_.dangerDurationMs;
-            break;
-        case RiskLevel::CAUTION:
-            freq = config_.cautionFreqHz;
-            dur = config_.cautionDurationMs;
-            break;
-        default:
-            return;
+        case RiskLevel::CRITICAL: soundFile = config_.criticalSound; break;
+        case RiskLevel::DANGER:   soundFile = config_.dangerSound; break;
+        case RiskLevel::CAUTION:  soundFile = config_.cautionSound; break;
+        default: return;
     }
 
-    // Beep is synchronous but short enough (~100-200ms) on warning thread
-    Beep(static_cast<DWORD>(freq), static_cast<DWORD>(dur));
-
-    // Double beep for CRITICAL
-    if (level == RiskLevel::CRITICAL) {
-        Beep(static_cast<DWORD>(freq + 200), static_cast<DWORD>(dur));
+    std::string fullPath = config_.soundsDir + soundFile;
+    // SND_ASYNC: non-blocking, SND_NODEFAULT: no fallback sound
+    // Replace .mp3 extension with .wav if needed
+    size_t mp3Pos = fullPath.rfind(".mp3");
+    if (mp3Pos != std::string::npos) {
+        fullPath.replace(mp3Pos, 4, ".wav");
     }
+    PlaySoundA(fullPath.c_str(), NULL, SND_FILENAME | SND_ASYNC | SND_NODEFAULT);
 
 #else
     // Linux / Jetson Nano: Use aplay for .wav playback (non-blocking with &)

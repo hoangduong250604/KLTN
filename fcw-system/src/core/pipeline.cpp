@@ -68,6 +68,11 @@ bool Pipeline::loadConfig(const std::string& systemConfigPath,
         config_.enableWarning = pipeline["enable_warning"].as<bool>(true);
         config_.enableVisualization = pipeline["enable_visualization"].as<bool>(true);
 
+        // Performance config
+        if (sys["performance"]) {
+            detectInterval_ = sys["performance"]["detect_interval"].as<int>(2);
+        }
+
         // Detection config
         auto det = sysConfig["detection"];
         config_.detectorConfig.modelPath = det["model_path"].as<std::string>("./models/yolov8n.engine");
@@ -115,6 +120,15 @@ bool Pipeline::loadConfig(const std::string& systemConfigPath,
             config_.cameraModel.mountHeight = cam["mounting"]["height"].as<float>(1.65f);
             config_.cameraModel.pitchAngle = cam["mounting"]["pitch_angle"].as<float>(0.0f)
                                               * static_cast<float>(M_PI) / 180.0f;
+
+            // Load CSI camera settings for Jetson Nano
+            if (cam["csi"]) {
+                config_.csiSensorId = cam["csi"]["sensor_id"].as<int>(0);
+                config_.csiCaptureWidth = cam["csi"]["capture_width"].as<int>(1280);
+                config_.csiCaptureHeight = cam["csi"]["capture_height"].as<int>(720);
+                config_.csiFps = cam["csi"]["framerate"].as<int>(30);
+                config_.csiFlipMethod = cam["csi"]["flip_method"].as<int>(0);
+            }
         }
 
         // Warning config
@@ -128,6 +142,17 @@ bool Pipeline::loadConfig(const std::string& systemConfigPath,
             config_.riskConfig.smoothingWindow = warn["risk"]["smoothing_window"].as<int>(5);
             config_.riskConfig.minConsecutive = warn["risk"]["min_consecutive_frames"].as<int>(3);
             config_.warningConfig.audioEnabled = warn["audio"]["enabled"].as<bool>(true);
+        }
+
+        // Traffic sign/light secondary detector config
+        if (sysConfig["traffic_sign"]) {
+            auto ts = sysConfig["traffic_sign"];
+            config_.trafficSignConfig.enabled = ts["enabled"].as<bool>(true);
+            config_.trafficSignConfig.modelPath = ts["model_path"].as<std::string>("./models/yolov8n_traffic.onnx");
+            config_.trafficSignConfig.labelsPath = ts["labels_path"].as<std::string>("./models/traffic_labels.txt");
+            config_.trafficSignConfig.inputSize = ts["input_size"].as<int>(320);
+            config_.trafficSignConfig.confThreshold = ts["conf_threshold"].as<float>(0.40f);
+            config_.trafficSignConfig.processInterval = ts["process_interval"].as<int>(3);
         }
 
         LOG_INFO("Pipeline", "Configuration loaded successfully");
@@ -170,7 +195,23 @@ bool Pipeline::init(const PipelineConfig& config) {
             return false;
         }
     } else if (config_.inputType == "camera") {
-        if (!camera_.openCSI()) {
+        bool cameraOk = false;
+        if (config_.cameraType == "usb") {
+            int devId = 0;
+            if (!config_.inputSource.empty()) {
+                try { devId = std::stoi(config_.inputSource); } catch (...) {}
+            }
+            LOG_INFO("Pipeline", "Opening USB camera device " + std::to_string(devId));
+            cameraOk = camera_.openUSB(devId, config_.inputWidth, config_.inputHeight);
+        } else {
+            LOG_INFO("Pipeline", "Opening CSI camera sensor " + std::to_string(config_.csiSensorId));
+            cameraOk = camera_.openCSI(config_.csiSensorId,
+                                        config_.csiCaptureWidth,
+                                        config_.csiCaptureHeight,
+                                        config_.csiFps,
+                                        config_.csiFlipMethod);
+        }
+        if (!cameraOk) {
             LOG_ERROR("Pipeline", "Failed to open camera");
             return false;
         }
@@ -240,6 +281,9 @@ bool Pipeline::init(const PipelineConfig& config) {
     if (config_.enableVisualization) {
         visualization_.setConfig(config_.visConfig);
     }
+
+    // ---- Initialize traffic sign/light processor ----
+    trafficSignProcessor_.init(config_.trafficSignConfig);
 
     // ---- Video writer ----
     if (config_.saveVideo) {
@@ -361,9 +405,13 @@ bool Pipeline::processFrame() {
     // ---- 8. Warning ----
     if (config_.enableWarning) {
         RiskAssessment highest = riskAssessor_.getHighestRisk();
-        if (highest.level > RiskLevel::SAFE) {
-            warningSystem_.trigger(highest);
-        }
+        warningSystem_.trigger(highest);
+    }
+
+    // ---- 8b. Traffic Sign/Light Classification ----
+    TrafficSignResult trafficResult;
+    if (trafficSignProcessor_.isReady()) {
+        trafficResult = trafficSignProcessor_.process(frame, detections, frameCount_);
     }
 
     // ---- 9. Visualization ----
@@ -371,8 +419,17 @@ bool Pipeline::processFrame() {
         utils::ScopedTimer st(timer_, "visualization");
         float egoSpeedKmh = speedEstimator_.getEgoSpeedKmh();
         visualization_.draw(frame, activeTracks, distances, speeds,
-                            ttcs, risks, timer_.getFPS(), detections, egoSpeedKmh);
-        cv::imshow("FCW System", frame);
+                            ttcs, risks, timer_.getFPS(), detections, egoSpeedKmh,
+                            trafficResult);
+
+        // Display: native aspect for video, 1024x600 for camera
+        if (config_.inputType == "camera") {
+            cv::Mat display;
+            cv::resize(frame, display, cv::Size(1024, 600));
+            cv::imshow("FCW System", display);
+        } else {
+            cv::imshow("FCW System", frame);
+        }
     }
 
     // ---- 10. Save output ----

@@ -26,14 +26,37 @@ std::unordered_map<int, RiskAssessment> CollisionRisk::assess(
         ra.relativeSpeed = ttcInfo.relativeSpeed;
 
         // Check if vehicle is in ego-lane corridor
+        bool isEdgeTruncated = false;
         auto distIt = distances.find(trackId);
         if (distIt != distances.end()) {
             ra.inEgoPath = distIt->second.inEgoPath;
+            isEdgeTruncated = distIt->second.isEdgeTruncated;
         }
 
         // Classify risk based on TTC
         if (ttcInfo.valid && ttcInfo.isApproaching) {
             ra.level = classifyRisk(ttcInfo.ttcSmoothed);
+            
+            // === ONCOMING VEHICLE SUPPRESSION ===
+            // Oncoming vehicles have high closing speed but will pass by, not collide
+            // Only allow warning if vehicle is directly in ego path (head-on scenario)
+            if (ttcInfo.vehicleState == VehicleState::ONCOMING) {
+                if (!ra.inEgoPath) {
+                    ra.level = RiskLevel::SAFE;  // Not in our lane → no risk
+                } else {
+                    // In ego path + oncoming = potential head-on, keep warning but cap at DANGER
+                    // (true head-on at highway speed is extremely rare in normal driving)
+                    if (ra.level > RiskLevel::DANGER) {
+                        ra.level = RiskLevel::DANGER;
+                    }
+                }
+            }
+            
+            // === EDGE TRUNCATION SUPPRESSION ===
+            // Vehicle leaving frame has unreliable distance/bbox → suppress false alarm
+            if (isEdgeTruncated) {
+                ra.level = RiskLevel::SAFE;  // Don't warn for vehicles exiting the frame
+            }
             
             // Vehicles NOT in ego path: cap risk at CAUTION (no false alarms)
             if (!ra.inEgoPath && ra.level > RiskLevel::CAUTION) {
@@ -102,9 +125,6 @@ RiskAssessment CollisionRisk::getHighestRisk() const {
     highest.ttc = 999.0f;
 
     for (const auto& [id, ra] : risks_) {
-        // Only consider in-path vehicles for highest risk
-        if (!ra.inEgoPath) continue;
-        
         if (ra.level > highest.level ||
             (ra.level == highest.level && ra.ttc < highest.ttc)) {
             highest = ra;

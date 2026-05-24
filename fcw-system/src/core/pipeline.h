@@ -26,6 +26,7 @@
 #include "collision_risk.h"
 #include "warning_system.h"
 #include "visualization.h"
+#include "traffic_sign_processor.h"
 #include "timer.h"
 
 namespace fcw {
@@ -34,8 +35,16 @@ struct PipelineConfig {
     // Input
     std::string inputType = "video";     // "camera", "video", "image_dir"
     std::string inputSource;
+    std::string cameraType = "csi";      // "csi" or "usb"
     int inputWidth = 1280;
     int inputHeight = 720;
+
+    // CSI camera settings (Jetson Nano)
+    int csiSensorId = 0;
+    int csiCaptureWidth = 1280;
+    int csiCaptureHeight = 720;
+    int csiFps = 30;
+    int csiFlipMethod = 0;
 
     // KITTI OXTS ground truth (for ego speed)
     std::string kittiRoot;               // Path to KITTI/ folder (auto-detect OXTS)
@@ -65,6 +74,7 @@ struct PipelineConfig {
     WarningConfig warningConfig;
     VisConfig visConfig;
     CameraModel cameraModel;
+    TrafficSignConfig trafficSignConfig;
 };
 
 class Pipeline {
@@ -110,11 +120,31 @@ public:
     /** Get current config (for ThreadedPipeline) */
     const PipelineConfig& getConfig() const { return config_; }
 
+    /** Override input after loadConfig (for GUI) */
+    void overrideInput(const std::string& type, const std::string& source) {
+        config_.inputType = type;
+        config_.inputSource = source;
+    }
+    void overrideCameraType(const std::string& camType) {
+        config_.cameraType = camType;
+    }
+    void overrideKittiRoot(const std::string& root) {
+        config_.kittiRoot = root;
+    }
+    void overrideModel(const std::string& modelPath, const std::string& labelsPath) {
+        config_.detectorConfig.modelPath = modelPath;
+        config_.detectorConfig.labelsPath = labelsPath;
+    }
+
 private:
     PipelineConfig config_;
     bool initialized_ = false;
     bool running_ = false;
     int frameCount_ = 0;
+
+    // Detection frame skipping
+    int detectInterval_ = 2;              // Run detection every N frames
+    DetectionResult lastDetections_;      // Cached detection result
 
     // Modules
     Camera camera_;
@@ -127,6 +157,7 @@ private:
     CollisionRisk riskAssessor_;
     WarningSystem warningSystem_;
     Visualization visualization_;
+    TrafficSignProcessor trafficSignProcessor_;
     utils::Timer timer_;
 
     // Video writer for output
