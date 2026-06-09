@@ -15,6 +15,7 @@ public:
     void setVideoDir(const std::string& dir) { videoDir_ = dir; }
     void setKittiRoot(const std::string& dir) { kittiRoot_ = dir; }
     void setConfigDir(const std::string& dir) { configDir_ = dir; }
+    void setModelPath(const std::string& path) { modelPath_ = path; }
     int run();
 
 private:
@@ -55,6 +56,7 @@ private:
     std::string kittiRoot_ = "../KITTI";
     std::string configDir_ = "./config";
     std::string logoPath_  = "./logo/logo1.png";
+    std::string modelPath_;  // Explicit model path from CLI --model
 
     // Cached background
     cv::Mat bgImage_;
