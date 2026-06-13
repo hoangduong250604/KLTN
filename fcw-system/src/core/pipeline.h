@@ -12,6 +12,7 @@
 
 #include <string>
 #include <memory>
+#include <fstream>
 #include <opencv2/core.hpp>
 #include <opencv2/videoio.hpp>
 
@@ -49,6 +50,7 @@ struct PipelineConfig {
     // KITTI OXTS ground truth (for ego speed)
     std::string kittiRoot;               // Path to KITTI/ folder (auto-detect OXTS)
     std::string oxtsDataFolder;          // Direct path to oxts/data/ folder (override)
+    float fixedEgoSpeedKmh = -1.0f;      // Fixed ego speed (km/h), -1 = use OXTS/auto
 
     // Modules enable/disable
     bool enableDetection = true;
@@ -114,6 +116,9 @@ public:
     /** Stop the pipeline */
     void stop();
 
+    /** Enable per-frame CSV export for evaluation */
+    void enableEvalLog(const std::string& csvPath);
+
     /** Check if pipeline is running */
     bool isRunning() const { return running_; }
 
@@ -142,9 +147,9 @@ private:
     bool running_ = false;
     int frameCount_ = 0;
 
-    // Detection frame skipping
-    int detectInterval_ = 2;              // Run detection every N frames
-    DetectionResult lastDetections_;      // Cached detection result
+    // Eval CSV export
+    std::ofstream evalLog_;
+    bool evalEnabled_ = false;
 
     // Modules
     Camera camera_;
