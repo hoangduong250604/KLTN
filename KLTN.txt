@@ -1,0 +1,659 @@
+ĐẠI HỌC QUỐC GIA THÀNH PHỐ HỒ CHÍ MINH
+TRƯỜNG ĐẠI HỌC KHOA HỌC TỰ NHIÊN
+KHOA ĐIỆN TỬ - VIỄN THÔNG 
+
+
+
+LÊ HOÀNG DƯƠNG
+
+
+
+HỆ THỐNG CẢNH BÁO VA CHẠM PHÍA TRƯỚC DỰA TRÊN PHÁT HIỆN VÀ THEO DÕI XE PHÍA TRƯỚC VÀ ƯỚC LƯỢNG THỜI GIAN VA CHẠM TRÊN JETSON NANO
+
+
+
+KHÓA LUẬN TỐT NGHIỆP CỬ NHÂN 
+NGÀNH KỸ THUẬT ĐIỆN TỬ - VIỄN THÔNG
+
+
+
+
+
+
+Thành phố Hồ Chí Minh – Năm 2026
+ 
+
+ĐẠI HỌC QUỐC GIA THÀNH PHỐ HỒ CHÍ MINH
+TRƯỜNG ĐẠI HỌC KHOA HỌC TỰ NHIÊN
+KHOA ĐIỆN TỬ - VIỄN THÔNG 
+
+
+KHÓA LUẬN TỐT NGHIỆP CỬ NHÂN 
+NGÀNH KỸ THUẬT ĐIỆN TỬ - VIỄN THÔNG
+
+
+
+HỆ THỐNG CẢNH BÁO VA CHẠM PHÍA TRƯỚC DỰA TRÊN PHÁT HIỆN VÀ THEO DÕI XE PHÍA TRƯỚC VÀ ƯỚC LƯỢNG THỜI GIAN VA CHẠM TRÊN JETSON NANO
+
+
+Họ và tên sinh viên: Lê Hoàng Dương
+   Mã số SV: 22207111
+
+NGƯỜI HƯỚNG DẪN KHOA HỌC:
+							ThS. Hoàng Anh Tuấn
+
+
+
+Thành phố Hồ Chí Minh – Năm 2026
+ 
+XÁC NHẬN HOÀN TẤT CHỈNH SỬA BÁO CÁO TỐT NGHIỆP
+
+
+TÊN ĐỀ TÀI: HỆ THỐNG CẢNH BÁO VA CHẠM PHÍA TRƯỚC DỰA TRÊN PHÁT HIỆN VÀ THEO DÕI XE PHÍA TRƯỚC VÀ ƯỚC LƯỢNG THỜI GIAN VA CHẠM TRÊN JETSON NANO
+
+Tên tiếng Anh: Vision-Based Forward Collision Warning System Using Object Detection and Time-to-Collision Estimation on Jetson Nano
+
+
+Họ và tên sinh viên: Lê Hoàng Dương
+Mã số sinh viên: 22207111
+
+
+Hội đồng đánh giá họp ngày..... tháng ..... năm......
+
+1. Chủ tịch:                                                
+2. Thư ký:                                                  
+3. Ủy viên:
+4. Ủy viên:
+5. Ủy viên:
+
+
+Người hướng dẫn:    
+Xác nhận của người hướng dẫn:
+ 
+LỜI CẢM ƠN
+Trong quá trình thực hiện Khóa luận Tốt nghiệp này, em đã nhận được sự quan tâm, động viên và hỗ trợ rất lớn từ quý thầy cô, gia đình và bạn bè.
+Lời đầu tiên, em xin gửi lời cảm ơn chân thành đến Ban Giám hiệu Trường Đại học Khoa học Tự nhiên, Đại học Quốc gia Thành phố Hồ Chí Minh, cùng quý thầy cô Khoa Điện tử - Viễn thông đã truyền đạt cho em nền tảng kiến thức vững chắc và tư duy khoa học trong suốt bốn năm đại học.
+Em xin bày tỏ lòng biết ơn sâu sắc đến Thạc sĩ Hoàng Anh Tuấn, người Thầy đã trực tiếp định hướng nghiên cứu và tận tình hỗ trợ em về mọi mặt. Từ việc cung cấp thiết bị phần cứng, tư vấn xử lý dữ liệu cho đến những lời khuyên chuyên môn sâu sắc. Sự tâm huyết của Thầy là động lực to lớn giúp em vượt qua các khó khăn của đề tài.
+Em trân trọng cảm ơn Tiến sĩ Huỳnh Hữu Thuận, Trưởng bộ môn Máy tính và Hệ thống. Lộ trình học tập chuyên sâu do Thầy và bộ môn xây dựng đã trang bị cho em kiến thức cốt lõi về hệ thống nhúng, giúp em tự tin hiện thực hóa đề tài phức tạp này trên nền tảng Jetson Nano.
+Bên cạnh đó, em xin chân thành cảm ơn Giảng viên Nguyễn Minh Thiện đã luôn nhiệt tình hỗ trợ, khắc phục nhanh chóng các vấn đề nan giải về hệ điều hành và phần cứng, đảm bảo tiến độ thực nghiệm không bị gián đoạn.
+Cuối cùng, em xin gửi lời tri ân đến gia đình và những người bạn đã luôn đồng hành, chia sẻ khó khăn và động viên tinh thần em trong suốt chặng đường đại học vừa qua.
+Thành phố Hồ Chí Minh, tháng 08 năm 2026 
+Sinh viên thực hiện 
+
+   Lê Hoàng Dương
+
+LỜI CAM KẾT
+Tôi tên là: Lê Hoàng Dương. Mã số sinh viên: 22207111. Sinh viên ngành Kỹ thuật Điện tử - Viễn thông, Trường Đại học Khoa học Tự nhiên, Đại học Quốc gia Thành phố Hồ Chí Minh.
+Tôi xin cam kết đề tài Khóa luận tốt nghiệp với tiêu đề: "HỆ THỐNG CẢNH BÁO VA CHẠM PHÍA TRƯỚC DỰA TRÊN PHÁT HIỆN VÀ THEO DÕI XE PHÍA TRƯỚC VÀ ƯỚC LƯỢNG THỜI GIAN VA CHẠM TRÊN JETSON NANO" là công trình nghiên cứu độc lập của cá nhân tôi, được thực hiện dưới sự hướng dẫn khoa học của ThS. Hoàng Anh Tuấn. Để đảm bảo tính toàn vẹn và đạo đức trong nghiên cứu khoa học, tôi cam đoan:
+1. Về tính nguyên bản: Kiến trúc phần mềm và quy trình thiết kế hệ thống là kết quả tự nghiên cứu và phát triển. Khóa luận hoàn toàn không sao chép hay đạo nhái từ bất kỳ công trình nào đã công bố.
+2. Về tính trung thực: Các kết quả thực nghiệm (độ trễ, tốc độ khung hình trên Jetson Nano, chỉ số ước lượng khoảng cách và TTC) được thu thập khách quan qua chạy thử nghiệm thực tế và từ các bộ dữ liệu mở uy tín (BDD100K, KITTI). Tôi tuyệt đối không ngụy tạo, chỉnh sửa hay làm sai lệch số liệu.
+3. Về bản quyền tác giả: Mọi nền tảng lý thuyết và công nghệ mã nguồn mở được sử dụng (YOLOv8, TensorRT, ONNX Runtime, OpenCV) đều được tham khảo từ các nguồn chính thống và trích dẫn minh bạch, đầy đủ trong danh mục Tài liệu tham khảo.
+Tôi xin chịu hoàn toàn mọi trách nhiệm trước Hội đồng đánh giá, Ban Chủ nhiệm Khoa và Ban Giám hiệu Nhà trường, đồng thời chấp nhận mọi hình thức kỷ luật nghiêm khắc nhất nếu phát hiện có sự gian dối hay vi phạm quy định quyền tác giả trong khóa luận.
+Thành phố Hồ Chí Minh, tháng 08 năm 2026 
+Sinh viên thực hiện 
+
+  Lê Hoàng Dương
+ 
+TÓM TẮT
+Khóa luận này trình bày quá trình nghiên cứu, thiết kế và hiện thực hóa Hệ thống cảnh báo va chạm phía trước (FCW) theo thời gian thực trên nền tảng nhúng NVIDIA Jetson Nano. Mục tiêu cốt lõi của đề tài là xây dựng một giải pháp Hỗ trợ lái xe tiên tiến (ADAS) dựa trên camera đơn mắt, giúp phát hiện, theo dõi phương tiện và đưa ra cảnh báo rủi ro va chạm kịp thời nhằm nâng cao an toàn giao thông. 
+Về mặt phương pháp và trí tuệ nhân tạo, hệ thống ứng dụng mô hình học sâu YOLOv8 (phiên bản YOLOv8s) được huấn luyện bằng ngôn ngữ Python trên bộ dữ liệu BDD100K nhằm nhận diện chính xác 10 lớp đối tượng giao thông đặc thù. Để giải quyết bài toán tài nguyên giới hạn trên thiết bị nhúng, mạng nơ-ron được xuất sang định dạng ONNX và tối ưu hóa bằng NVIDIA TensorRT với độ chính xác bán chuẩn FP16, giúp tối đa hóa khả năng tính toán của GPU 128-core Maxwell trên Jetson Nano. Bài toán theo dõi đối tượng (Object Tracking) được giải quyết bằng thuật toán SORT (Simple Online and Realtime Tracking), kết hợp Bộ lọc Kalman (Kalman Filter) để dự đoán quỹ đạo và thuật toán Hungarian để tối ưu hóa việc gán nhãn. 
+Về cấu trúc thuật toán xử lý vật lý, hệ thống ước lượng khoảng cách không gian dựa trên mô hình hình học Pinhole Camera kết hợp các tham số nội tại (intrinsic parameters) từ bộ dữ liệu KITTI. Để giải quyết triệt để tình trạng sụt giảm và dao động tốc độ khung hình (FPS) trên phần cứng yếu, đề tài đã phát triển phương pháp tính toán Vận tốc tiếp cận (Closing Speed) thông qua thuật toán Hồi quy tuyến tính dựa trên mốc thời gian thực (Timestamp-based Linear Regression). Thông số Thời gian trước va chạm (TTC - Time-to-Collision) được tổng hợp trọng số từ hai phương pháp: ước lượng qua khoảng cách (distance-based) và ước lượng qua tốc độ thay đổi kích thước hộp giới hạn (scale-based). Toàn bộ đường ống xử lý (pipeline) cốt lõi được lập trình bằng ngôn ngữ C++17, quản lý biên dịch bằng CMake trên môi trường Ubuntu. Hệ thống được thiết kế với kiến trúc linh hoạt, hỗ trợ chạy song song hai backend: TensorRT cho Jetson Nano và ONNX Runtime cho Desktop. 
+Kết quả thực nghiệm cho thấy, hệ thống C++ hoạt động với độ ổn định cao, xử lý trơn tru các luồng video liên tục mà không xảy ra hiện tượng rò rỉ bộ nhớ. Trên phần cứng NVIDIA Jetson Nano, toàn bộ pipeline đạt tốc độ xử lý khoảng 8-9 FPS với tổng độ trễ xấp xỉ 120ms trên mỗi khung hình. Hệ thống cảnh báo hoạt động hiệu quả với cơ chế phân loại rủi ro thành 4 cấp độ (SAFE, CAUTION, DANGER, CRITICAL), đồng thời tích hợp các cơ chế chống nhiễu như lọc phương tiện theo làn đường (Ego-lane filtering) và triệt tiêu nhiễu khi vào cua (Turn suppression). Lớp phủ hiển thị trực quan (HUD) được vẽ trực tiếp lên luồng video bằng OpenCV và hệ thống cảnh báo âm thanh đa luồng được vận hành độc lập, đáp ứng đầy đủ các tiêu chuẩn cơ bản của một hệ thống cảnh báo va chạm thực tế.
+
+ 
+MỤC LỤC (style: Title)
+
+LỜI CẢM ƠN	5
+LỜI CAM KẾT	6
+TÓM TẮT	1
+MỤC LỤC (style: Title)	3
+DANH SÁCH CHỮ VIẾT TẮT (style: Title)	6
+DANH SÁCH CÁC HÌNH (style: Title)	11
+DANH SÁCH CÁC BẢNG (style: Title)	12
+CHƯƠNG 1:	GIỚI THIỆU	13
+1.1.	BỐI CẢNH VÀ LÝ DO CHỌN ĐỀ TÀI	13
+1.2.	MỤC TIÊU NGHIÊN CỨU	14
+1.3.	ĐỐI TƯỢNG VÀ PHẠM VI NGHIÊN CỨU:	14
+1.3.1.	Đối tượng nghiên cứu	14
+1.3.2.	Phạm vi nghiên cứu của đề tài	15
+1.4.	Ý NGHĨA KHOA HỌC VÀ THỰC TIỄN	15
+1.4.1.	Ý nghĩa khoa học	15
+1.4.2.	Ý nghĩa thực tiễn	16
+1.5.	CẤU TRÚC BÀI KHÓA LUẬN	16
+CHƯƠNG 2:	TỔNG QUAN HỆ THỐNG	18
+2.1.	CƠ SỞ LÝ THUYẾT	18
+2.1.1.	Mô hình phát hiện đối tượng YOLOv8	18
+2.1.2.	Thuật toán lọc nhiễu hộp giới hạn Non-Maximum Suppression	18
+2.1.3.	Thuật toán theo dõi đối tượng SORT và Bộ lọc Kalman	19
+2.1.4.	Thuật toán gán tối ưu Hungarian	21
+2.1.5.	Mô hình học Camera Pinhole	21
+2.1.6.	Cơ sở hình học của thuật toán Lọc hành lang (Ego-Lane Corridor Filtering)	22
+2.1.7.	Phương pháp lọc nhiễu và làm mượt dữ liệu chuỗi thời gian	23
+2.1.8.	Mô hình Hồi quy tuyến tính và phương pháp tính thời gian va chạm TTC	24
+2.1.9.	Lý thuyết trễ (Hysteresis) trong nhận diện trạng thái	25
+2.2.	SƠ ĐỒ KHỐI HỆ THỐNG	26
+2.2.1.	Sơ đồ khối tổng thể của hệ thống (Pipeline)	26
+2.2.2.	Cấu trúc khối tiền xử lý, nhận diện và theo dõi:	27
+2.2.3.	Cấu trúc chi tiết khối phân tích vật lý và tính toán TTC	28
+2.2.4.	Cấu trúc xử lý đa luồng (Multi-threading) và cảnh báo	29
+2.3.	CÁC PHẦN CỨNG ĐƯỢC SỬ DỤNG TRONG HỆ THỐNG	30
+2.4.	CÁC PHẦN MỀM VÀ THƯ VIỆN ĐƯỢC SỬ DỤNG	31
+CHƯƠNG 3:	THIẾT KẾ VÀ THỰC HIỆN HỆ THỐNG	34
+3.1.	THIẾT KẾ VÀ CẤU HÌNH PHẦN CỨNG HỆ THỐNG	34
+3.1.1.	Sơ đồ kết nối vật lý	34
+3.1.2.	Cấu hình môi trường triển khai (Deployment Setup)	35
+3.2.	CHUẨN BỊ DỮ LIỆU VÀ HUẤN LUYỆN MÔ HÌNH YOLOv8	36
+3.3.	HIỆN THỰC HÓA LUỒNG THỊ GIÁC MÁY TÍNH	36
+3.3.1.	Module thu nhận ảnh (Camera Module)	37
+3.3.2.	Module tiền xử lý ảnh (Preprocessing Module)	37
+3.3.3.	Module suy diễn AI – Kiến trúc Dual-Backend	38
+3.3.4.	Module hậu xử lý và NMS	39
+3.4.	TRIỂN KHAI THUẬT TOÁN THEO DÕI VÀ TÍNH TOÁN RỦI RO	40
+3.4.1.	Module theo dõi đa đối tượng (Object Tracker – SORT)	40
+3.4.2.	Module ước lượng khoảng cách (Distance Estimator)	41
+3.4.3.	Module ước lượng vận tốc tiếp cận (Speed Estimator)	42
+3.4.4.	Module tính toán TTC (TTC Calculator)	44
+3.4.5.	Module đánh giá rủi ro va chạm (Collision Risk)	45
+3.5.	QUẢN LÝ TRẠNG THÁI VÀ TỐI ƯU HÓA LUỒNG THỰC THI	45
+3.5.1.	Module cảnh báo đa luồng (Warning system)	45
+3.5.2.	Module hiển thị trực quan (Visualization – HUD Overlay)	47
+3.5.3.	Module điều phối tổng thể (Pipeline Orchestrator)	47
+3.5.4.	Giao diện đồ họa người dùng	48
+3.6.	TỔNG KẾT CẤU TRÚC MÃ NGUỒN	49
+CHƯƠNG 4:	KẾT QUẢ THỰC NGHIỆM VÀ THẢO LUẬN	53
+4.1.	MÔI TRƯỜNG VÀ DỮ LIỆU THỰC NGHIỆM	53
+4.2.	HIỆU NĂNG CỦA MÔ HÌNH NHẬN DIỆN YOLO8s TRÊN BDD100K	54
+4.2.1.	Kết quả kiểm thử trên tập validation BDD100K	54
+4.2.2.	So sánh hiệu năng suy diễn  giữa Desktop và Jetson Nano	56
+4.3.	KẾT QUẢ HOẠT ĐỘNG TRỰC QUAN CỦA HỆ THỐNG	57
+4.4.	PHƯƠNG PHÁP ĐÁNH GIÁ ĐỊNH LƯỢNG VỚI KITTI DATASET	59
+4.5.	KẾT QUẢ ĐÁNH GIÁ CỦA HỆ THỐNG	61
+4.5.1.	Kết quả đánh giá khả năng phát hiện phương tiện	61
+4.5.2.	Kết quả ước lượng khoảng cách	63
+4.5.3.	Kết quả ước lượng vận tốc tiếp cận và tính TTC	68
+4.5.4.	Hiệu năng thời gian thực của hệ thống	69
+4.6.	THẢO LUẬN	71
+4.6.1.	Sự đánh đổi giữa độ phân giải đầu vào và tốc độ khung hình (Resolution vs FPS Trade-off)	72
+4.6.2.	Ưu điểm và giới hạn của phương pháp camera đơn mắt	74
+4.7.	TỔNG KẾT CHƯƠNG	75
+CHƯƠNG 5:	KẾT LUẬN VÀ HƯỚNG PHÁT TRIỂN	77
+5.1.	KẾT LUẬN	77
+5.2.	HẠN CHẾ CỦA ĐỀ TÀI	78
+5.3.	HƯỚNG PHÁT TRIỂN	79
+TÀI LIỆU THAM KHẢO	80
+
+
+ 
+DANH SÁCH CHỮ VIẾT TẮT (style: Title)
+Từ viết tắt	Tên tiếng Anh	Tên tiếng Việt
+ADAS	Advanced Driver Assistance Systems	Hệ thống hỗ trợ lái xe tiên tiến
+AEB	Autonomous Emergency Braking	Phanh khẩn cấp tự động
+AI	Artificial Intelligence	Trí tuệ nhân tạo
+AIoT	Artificial Intelligence of Things	Trí tuệ nhân tạo vạn vật
+BDD100K	Berkeley DeepDrive 100K	Tập dữ liệu lái xe đa điều kiện (100.000 video)
+BEV	Bird's Eye View	Góc nhìn từ trên cao
+CAN	Controller Area Network	Mạng vùng điều khiển trong ô tô
+CMake	Cross-platform Make	Công cụ xây dựng và quản lý biên dịch đa nền tảng
+COCO	Common Objects in Context	Tập dữ liệu nhận diện đối tượng chung
+CPU	Central Processing Unit	Bộ xử lý trung tâm
+CSI	Camera Serial Interface	Giao tiếp nối tiếp camera
+CSV	Comma-Separated Values	Định dạng dữ liệu phân tách bằng dấu phẩy
+CUDA	Compute Unified Device Architecture	Kiến trúc tính toán song song của NVIDIA
+cuDNN	CUDA Deep Neural Network	Thư viện mạng nơ-ron sâu tăng tốc NVIDIA
+EMA	Exponential Moving Average	Trung bình động hàm mũ
+eMMC	Embedded Multi-Media Card	Thẻ nhớ đa phương tiện nhúng
+FCW	Forward Collision Warning	Cảnh báo va chạm phía trước
+FLOPs	Floating Point Operations Per Second	Số phép tính dấu phẩy động mỗi giây
+FOV	Field of View	Trường quan sát
+FP16	16-bit Floating Point	Dấu phẩy động 16-bit
+FP32	32-bit Floating Point	Dấu phẩy động 32-bit
+FPS	Frames Per Second	Số khung hình mỗi giây
+GCC	GNU Compiler Collection	Bộ biên dịch GNU
+GPS	Global Positioning System	Hệ thống định vị toàn cầu
+GPU	Graphics Processing Unit	Bộ xử lý đồ họa
+HUD	Heads-Up Display	Màn hình hiển thị thông tin trên kính chắn gió
+ID	Identifier	Mã định danh
+IMU	Inertial Measurement Unit	Đơn vị đo lường quán tính
+IoU	Intersection over Union	Tỷ lệ giao cắt trên hợp nhất
+JetPack	NVIDIA JetPack SDK	Bộ phát triển phần mềm Jetson
+KITTI	Karlsruhe Institute of Technology and Toyota Technological Institute	Tập dữ liệu xe tự lái KITTI
+L4T	Linux for Tegra	Hệ điều hành Linux cho Tegra
+LiDAR	Light Detection and Ranging	Cảm biến đo khoảng cách bằng laser
+LPDDR4	Low Power Double Data Rate 4	Chuẩn RAM tiết kiệm năng lượng thế hệ 4
+MAE	Mean Absolute Error	Sai số tuyệt đối trung bình
+mAP	Mean Average Precision	Độ chính xác trung bình
+MIPI	Mobile Industry Processor Interface	Chuẩn giao tiếp công nghiệp di động
+NMS	Non-Maximum Suppression	Thuật toán triệt tiêu phi cực đại
+OBD-II	On-Board Diagnostics II	Hệ thống chẩn đoán trên xe thế hệ II
+ONNX	Open Neural Network Exchange	Định dạng trao đổi mô hình mạng nơ-ron
+OOM	Out of Memory	Lỗi tràn bộ nhớ
+OXTS	Oxford Technical Solutions	Hệ thống GPS/IMU cung cấp ground truth trong KITTI
+PWM	Pulse Width Modulation	Điều chế độ rộng xung
+Radar	Radio Detection and Ranging	Cảm biến đo khoảng cách bằng sóng vô tuyến
+RAM	Random Access Memory	Bộ nhớ truy cập ngẫu nhiên
+RGB	Red, Green, Blue	Không gian màu Đỏ – Lục – Lam
+RMSE	Root Mean Square Error	Căn bậc hai sai số bình phương trung bình
+SDK	Software Development Kit	Bộ công cụ phát triển phần mềm
+SGD	Stochastic Gradient Descent	Hạ gradient ngẫu nhiên
+SoC	System on Chip	Hệ thống trên chip
+SORT	Simple Online and Realtime Tracking	Thuật toán theo dõi thời gian thực
+TDP	Thermal Design Power	Công suất thiết kế nhiệt
+TensorRT	NVIDIA TensorRT	Công cụ tối ưu hóa và suy diễn mạng nơ-ron
+TTC	Time to Collision	Thời gian trước va chạm
+USB	Universal Serial Bus	Bus nối tiếp vạn năng
+YOLO	You Only Look Once	Mô hình phát hiện đối tượng một giai đoạn
+
+
+ 
+DANH SÁCH CÁC HÌNH (style: Title)
+Hình 2.1: Sơ đồ khối tổng thể của hệ thống	27
+Hình 2.2: Sơ đồ khối luồng xử lý thị giác máy tính	28
+Hình 2.3: Sơ đồ khối xử lý khối vật lý và tính TTC	29
+Hình 2.4: Sơ đồ khối xử lý đa luồng và cảnh báo	30
+Hình 4.1: Kết quả mAP theo từng lớp đối tượng của YOLOv8s trên BDD100K validation set	73
+Hình 4.2: Biểu đồ Recall và Precision theo từng đoạn KITTI	81
+Hình 4.3: So sánh khoảng cách Ground Truth và ước lượng theo từng frame	83
+Hình 4.4: Biểu đồ tán xạ khoảng cách ước lượng vs. Ground Truth – tổng hợp 25 đoạn	84
+Hình 4.5: Biểu đồ MAE khoảng cách theo từng đoạn KITTI	85
+Hình 4.6: Biểu đồ Velocity MAE theo từng đoạn KITTI	86
+Hình 4.7: Phân bổ thời gian xử lý pipeline FCW trên Jetson Nano và Desktop	88
+Hình 4.8: So sánh thời gian inference và FPS theo độ phân giải đầu vào	91
+Hình 4.9: Dashboard tổng kết các chỉ số đánh giá hệ thống FCW	93
+
+ 
+DANH SÁCH CÁC BẢNG (style: Title)
+Bảng 3.1: Tổng hợp cấu trúc module mã nguồn C++	68
+Bảng 4.1: Cấu hình môi trường thực nghiệm	71
+Bảng 4.2: Kết quả kiểm thử mô hình YOLOv8s trên BDD100K validation set	73
+Bảng 4.3: So sánh hiệu năng suy diễn YOLOv8s (768×448) giữa hai nền tảng	74
+Bảng 4.4: Tiêu chí lọc ground truth khi đánh giá với KITTI	78
+Bảng 4.5: Kết quả tổng hợp đánh giá phát hiện phương tiện trên KITTI	79
+Bảng 4.6: Một số đoạn KITTI có kết quả phát hiện tốt	80
+Bảng 4.7: Một số đoạn KITTI có kết quả thấp hơn	81
+Bảng 4.8: Kết quả tổng hợp ước lượng khoảng cách	82
+Bảng 4.9: Ví dụ kết quả khoảng cách trên một số drive tốt	82
+Bảng 4.10: Kết quả tổng hợp ước lượng vận tốc tiếp cận	86
+Bảng 4.11: Thời gian xử lý trung bình trên Jetson Nano	87
+Bảng 4.12: So sánh hiệu năng theo kích thước đầu vào mô hình trên Jetson Nano (TensorRT FP16)	90
+
+ 
+CHƯƠNG 1:	GIỚI THIỆU
+1.1.	BỐI CẢNH VÀ LÝ DO CHỌN ĐỀ TÀI
+An toàn giao thông đường bộ hiện là một thách thức lớn trong quá trình đô thị hóa và gia tăng phương tiện cơ giới tại Việt Nam. Thống kê từ Ủy ban An toàn Giao thông Quốc gia cho thấy, phần lớn các vụ va chạm liên hoàn hoặc đâm va từ phía sau xuất phát từ sự mất tập trung, phản xạ chậm trễ hoặc sai lầm trong phán đoán khoảng cách an toàn của người điều khiển. Để giảm thiểu rủi ro này, Hệ thống hỗ trợ lái xe tiên tiến (ADAS) đã được phát triển và chứng minh được hiệu quả khi giảm tới 40% nguy cơ va chạm [1], trở thành tiêu chuẩn an toàn trên các dòng xe hiện đại.
+Tuy nhiên, thực tế thị trường ô tô trong nước đang tồn tại hai rào cản lớn về mặt tiếp cận công nghệ. Thứ nhất, một lượng lớn phương tiện đang lưu hành là các dòng xe đời cũ hoàn toàn thiếu vắng các công nghệ an toàn chủ động [2]. Thứ hai, đối với các dòng xe đời mới, nhà sản xuất thường cắt giảm các tính năng ADAS trên phiên bản tiêu chuẩn để tối ưu giá thành cạnh tranh. Việc nâng cấp (Retrofit) các hệ thống thương mại cho nhóm xe này gặp khó khăn do chi phí đắt đỏ của các cảm biến Radar, LiDAR và yêu cầu can thiệp sâu vào kiến trúc điện (CAN Bus) của phương tiện.
+Để giải quyết bài toán kinh tế và kỹ thuật trên, đề tài đề xuất giải pháp xây dựng hệ thống Cảnh báo va chạm phía trước (FCW) hoạt động độc lập tại biên (Edge Computing). Bằng cách tối ưu hóa mô hình học sâu YOLOv8 trên nền tảng vi xử lý nhúng NVIDIA Jetson Nano kết hợp với camera đơn mắt (monocular camera) duy nhất, hệ thống hướng tới khả năng lắp đặt linh hoạt dạng cắm-và-chạy (plug-and-play). Giải pháp này đảm bảo hiệu năng tính toán thời gian thực với chi phí thấp, đáp ứng nhu cầu an toàn cơ bản cho các phân khúc phương tiện bình dân. Do đó, đề tài "HỆ THỐNG CẢNH BÁO VA CHẠM PHÍA TRƯỚC DỰA TRÊN PHÁT HIỆN VÀ THEO DÕI XE PHÍA TRƯỚC VÀ ƯỚC LƯỢNG THỜI GIAN VA CHẠM TRÊN JETSON NANO" được lựa chọn nghiên cứu và thực hiện.
+1.2.	MỤC TIÊU NGHIÊN CỨU
+Kế thừa các luận điểm thực tiễn, đề tài đặt mục tiêu xây dựng Hệ thống Cảnh báo va chạm phía trước (FCW) tinh gọn, tối ưu chi phí nhưng vẫn đảm bảo độ tin cậy. Về phần cứng, hệ thống vận hành hoàn toàn dựa trên nền tảng nhúng NVIDIA Jetson Nano kết hợp với một camera đơn mắt (monocular camera) duy nhất, thay thế cho các cụm cảm biến Radar hay LiDAR đắt đỏ. Kiến trúc này giải quyết triệt để bài toán kinh tế trong khi vẫn khai thác tối đa khả năng nhận diện không gian của các mạng học sâu hiện đại [3].
+Về mặt chức năng, hệ thống đóng vai trò quan sát độc lập: tập trung nhận diện phương tiện, ước lượng Vận tốc tiếp cận (Closing Speed) và Thời gian trước va chạm (TTC) để phát cảnh báo âm thanh và hình ảnh kịp thời, tuyệt đối không can thiệp vào hệ thống điều khiển của xe nhằm tránh rủi ro kỹ thuật. Để duy trì hiệu năng thời gian thực trên bo mạch có tài nguyên giới hạn, toàn bộ đường ống xử lý (pipeline) được tối ưu bằng ngôn ngữ C++ và công cụ nội suy TensorRT (chuẩn FP16). Đặc biệt, đề tài áp dụng thuật toán hồi quy tuyến tính dựa trên mốc thời gian thực (Timestamp-based Linear Regression) để tính toán vận tốc, nhằm khắc phục triệt để hiện tượng suy giảm hoặc dao động FPS, đảm bảo chuỗi cảnh báo luôn hoạt động mượt mà và chính xác.
+1.3.	ĐỐI TƯỢNG VÀ PHẠM VI NGHIÊN CỨU:
+1.3.1.	Đối tượng nghiên cứu
+Đối tượng nghiên cứu của đề tài được chia thành ba nhóm cốt lõi bao gồm thuật toán, phần cứng và dữ liệu. Về nền tảng thuật toán, đề tài tập trung khai thác mô hình mạng nơ-ron tích chập YOLOv8s cho bài toán phát hiện đối tượng, thuật toán SORT tích hợp bộ lọc Kalman để bám sát đa mục tiêu, mô hình Pinhole Camera để ước lượng khoảng cách không gian từ ảnh 2D, và phương pháp hồi quy tuyến tính để tính toán vận tốc tiếp cận. Về phần cứng, đối tượng thực thi là bo mạch xử lý biên NVIDIA Jetson Nano 4GB (kiến trúc Maxwell) kết hợp cùng camera đơn mắt IMX219. Về cơ sở dữ liệu, bộ BDD100K được sử dụng để huấn luyện mô hình nhận diện bối cảnh giao thông, trong khi bộ dữ liệu KITTI đóng vai trò tham chiếu để kiểm thử và đánh giá độ chính xác ước lượng vật lý.
+1.3.2.	Phạm vi nghiên cứu của đề tài
+Nhằm đảm bảo tính khả thi cho nền tảng nhúng, đề tài thiết lập các giới hạn cụ thể về phần cứng, chức năng và không gian hoạt động. Về khía cạnh phần cứng, hệ thống trích xuất thông tin động học hoàn toàn dựa trên luồng ảnh RGB từ camera đơn mắt, không tích hợp các cảm biến chuyên dụng như Radar hay LiDAR. Do giới hạn độ phân giải của hộp giới hạn (bounding box) ở khoảng cách xa, hệ thống được thiết kế để đạt độ chính xác tối ưu trong phạm vi từ 5m đến 50m.
+Về mặt chức năng, hệ thống vận hành thuần túy dưới dạng cảnh báo thụ động thông qua giao diện trực quan (HUD) và âm thanh. Đề tài tuyệt đối không can thiệp vào mạng giao tiếp CAN Bus cũng như không kích hoạt hệ thống phanh tự động (AEB) của phương tiện. Nhằm giảm thiểu cảnh báo giả và tiết kiệm tài nguyên tính toán, phạm vi đánh giá rủi ro được thu hẹp bằng bộ lọc hành lang di chuyển (Ego-lane Corridor); các phương tiện ở làn đường lân cận hoặc đi ngược chiều vẫn được nhận diện nhưng bị loại trừ khỏi ma trận tính toán thời gian va chạm. Cuối cùng, mã nguồn hệ thống được phát triển hoàn toàn bằng C++17, cho phép thực thi thời gian thực trên Jetson Nano thông qua công cụ tăng tốc TensorRT (chuẩn FP16) hoặc phân tích ngoại tuyến trên máy tính cá nhân bằng ONNX Runtime.
+1.4.	Ý NGHĨA KHOA HỌC VÀ THỰC TIỄN
+1.4.1.	Ý nghĩa khoa học
+Đề tài đóng góp những giải pháp cụ thể trong việc xử lý nhiễu dữ liệu và sự bất ổn định của hệ thống thị giác máy tính trên phần cứng nhúng. Để khắc phục sai số vận tốc do hiện tượng dao động tốc độ khung hình (FPS) đặc trưng của các vi xử lý yếu, đề tài đã áp dụng thành công thuật toán hồi quy tuyến tính dựa trên mốc thời gian thực (Timestamp-based Linear Regression), giúp hệ thống ước lượng vận tốc tiếp cận một cách độc lập và miễn nhiễm với trạng thái giật lag. Bên cạnh đó, độ tin cậy của tham số Thời gian trước va chạm (TTC) được nâng cao nhờ sự kết hợp có trọng số giữa phương pháp ước lượng dựa trên khoảng cách (Distance-based) và sự thay đổi kích thước hộp giới hạn (Scale-based) [4]. Đề tài cũng xây dựng một chuỗi logic lọc nhiễu vật lý bao gồm cơ chế chốt trạng thái dừng (Sticky Lock Stationary) với vòng trễ Hysteresis, cơ chế triệt tiêu nhiễu khi chuyển hướng (Turn Suppression) và lọc hành lang xe (Ego-lane filtering) nhằm tối thiểu hóa hiện tượng cảnh báo giả.
+1.4.2.	Ý nghĩa thực tiễn
+Về mặt ứng dụng, đề tài cung cấp một giải pháp Cảnh báo va chạm (FCW) có tính khả thi cao trên nền tảng điện toán biên (Edge Computing). Việc triển khai mạng học sâu YOLOv8 qua pipeline C++ tối ưu và bộ tăng tốc TensorRT FP16 trên Jetson Nano cho phép hệ thống đạt tốc độ xử lý khoảng 8 FPS với độ trễ 130 ms, hoàn toàn đáp ứng được ngưỡng thời gian phản ứng an toàn cơ bản của người điều khiển. Các mức độ đánh giá rủi ro (SAFE, CAUTION, DANGER, CRITICAL) được thiết lập dựa trên các tiêu chuẩn an toàn quốc tế, cung cấp cảnh báo đa phương thức mà không gây phân tâm [5]. Ngoài ra, kiến trúc phần mềm đa nền tảng (Dual-Backend) hỗ trợ song song TensorRT và ONNX Runtime mang lại sự linh hoạt tối đa cho quá trình kiểm thử ngoại tuyến cũng như khả năng nâng cấp, mở rộng hệ thống trong tương lai mà không bị ràng buộc vào một hệ sinh thái phần cứng duy nhất.
+1.5.	CẤU TRÚC BÀI KHÓA LUẬN
+Để hiện thực hóa các mục tiêu nghiên cứu, nội dung của khóa luận được cấu trúc mạch lạc thành năm chương chính. Chương 1 (Giới thiệu) khái quát bối cảnh thực tiễn của hệ thống hỗ trợ lái xe ADAS và tính năng FCW, qua đó làm rõ lý do chọn đề tài, mục tiêu, đối tượng, phạm vi nghiên cứu cùng các đóng góp khoa học của hệ thống. Chương 2 (Cơ sở lý thuyết) tập trung xây dựng nền tảng toán học cốt lõi bao gồm kiến trúc mạng học sâu một giai đoạn YOLOv8, nguyên lý thuật toán theo dõi đa đối tượng SORT kết hợp bộ lọc Kalman và thuật toán Hungarian, mô hình hình học Pinhole Camera dùng trong ước lượng khoảng cách, và phương pháp hồi quy tuyến tính.
+Tiếp theo, Chương 3 (Thiết kế và thực hiện hệ thống) trình bày chi tiết kiến trúc phần cứng và sơ đồ khối chức năng của nền tảng nhúng Jetson Nano; đồng thời phân tích sâu quy trình xây dựng các module phần mềm C++, giải pháp Dual-Backend, cơ chế tính vận tốc dựa trên mốc thời gian thực, thuật toán tính TTC và các bộ lọc hình học chống nhiễu logic kết hợp kiến trúc đa luồng. Chương 4 (Kết quả thực nghiệm và Thảo luận) mô tả chi tiết môi trường thực nghiệm, quy trình huấn luyện trên bộ dữ liệu BDD100K, phương pháp đối soát định lượng bằng Ground Truth của KITTI, kèm theo các số liệu, đồ thị đo lường về thời gian suy diễn, FPS, độ trễ và phân tích chuyên sâu về sự đánh đổi hiệu năng trên thiết bị biên. Cuối cùng, Chương 5 (Kết luận và Hướng phát triển) tổng kết lại các mục tiêu kỹ thuật đã đạt được, chỉ ra những giới hạn nội tại của hệ thống camera đơn mắt và định hướng các giải pháp nâng cấp khả thi trong tương lai. Khóa luận được khép lại bằng danh mục Tài liệu tham khảo và các Phụ lục đính kèm.
+
+
+
+ 
+CHƯƠNG 2:	TỔNG QUAN HỆ THỐNG
+2.1.	CƠ SỞ LÝ THUYẾT
+Để hệ thống cảnh báo va chạm phía trước (FCW) hoạt động ổn định theo thời gian thực, tiến trình xử lý dữ liệu được thiết kế thành một chuỗi tuyến tính bao gồm: nhận diện vật thể, theo dõi liên tục, ước lượng thông số vật lý không gian và phân tích động học. Phần này trình bày cơ sở toán học và nguyên lý vận hành của từng phân hệ thuật toán cốt lõi cấu thành nên hệ thống.
+2.1.1.	Mô hình phát hiện đối tượng YOLOv8
+Đảm nhận nhiệm vụ trích xuất đặc trưng hình ảnh và định vị phương tiện, đề tài ứng dụng mô hình YOLOv8 (You Only Look Once version 8) – kiến trúc mạng nơ-ron một giai đoạn (one-stage detector) tiên tiến do Ultralytics công bố [6]. Khác với các kiến trúc hai giai đoạn, YOLOv8 tối ưu hóa tốc độ suy diễn trên thiết bị nhúng nhờ ba cải tiến kỹ thuật đột phá. Thứ nhất, cơ chế Anchor-free loại bỏ các hộp neo cố định, tiến hành dự đoán trực tiếp tọa độ hộp giới hạn (bounding box) nhằm giảm tham số cấu hình và tăng tốc độ hội tụ. Thứ hai, mạng sử dụng cấu trúc xương sống (backbone) CSPDarknet kết hợp module C2f (Cross Stage Partial) giúp luân chuyển gradient hiệu quả, duy trì tốt đặc trưng ngữ nghĩa ở đa độ phân giải. Thứ ba, cấu trúc Decoupled Head tách biệt hoàn toàn hai nhánh tính toán phân lớp (Classification) và định vị (Regression), qua đó nâng cao độ chính xác của từng tác vụ một cách độc lập.
+Nhằm đáp ứng giới hạn tính toán của kiến trúc GPU Maxwell trên Jetson Nano, đề tài triển khai phiên bản YOLOv8s (small) với quy mô 11.2 triệu tham số và 28.6 GFLOPs. Cấu hình này cung cấp sự cân bằng tối ưu giữa độ chính xác nhận diện trên tập dữ liệu giao thông và tốc độ xử lý tại biên.
+2.1.2.	Thuật toán lọc nhiễu hộp giới hạn Non-Maximum Suppression
+Trong giai đoạn hậu xử lý, mạng nơ-ron thường tạo ra nhiều hộp giới hạn (bounding box) trùng lặp quanh một đối tượng do sự kích hoạt ở nhiều thang đo khác nhau. Để khắc phục, thuật toán triệt tiêu cực đại cục bộ NMS (Non-Maximum Suppression) được áp dụng nhằm giữ lại duy nhất hộp dự đoán có độ tin cậy cao nhất. Tiến trình NMS bắt đầu bằng việc sắp xếp toàn bộ danh sách hộp giới hạn theo điểm tin cậy (confidence score) giảm dần và chọn hộp có điểm cao nhất làm tham chiếu. Tiếp đó, hệ thống tính toán chỉ số giao cắt trên vùng hợp IoU (Intersection over Union) giữa hộp tham chiếu và các hộp còn lại theo công thức:
+ 
+Các hộp giới hạn có cùng nhãn phân lớp và có chỉ số IoU lớn hơn ngưỡng quy định (đề tài thiết lập ngưỡng IoU > 0.50) sẽ bị loại bỏ hoàn toàn do được xác định là bao quanh cùng một thực thể vật lý. Quá trình này được lặp lại đệ quy đối với các hộp còn sót lại cho đến khi toàn bộ danh sách được duyệt qua, đảm bảo đầu ra cuối cùng là các đối tượng độc lập, không bị trùng lặp [7].
+2.1.3.	Thuật toán theo dõi đối tượng SORT và Bộ lọc Kalman
+Do mô hình nhận diện chỉ cung cấp thông tin tĩnh độc lập tại từng khung hình, thuật toán SORT (Simple Online and Realtime Tracking) được tích hợp nhằm gán mã định danh (ID) duy nhất và theo dõi quỹ đạo phương tiện theo thời gian [8]. Lõi toán học của SORT là Bộ lọc Kalman, vận hành trên mô hình chuyển động tuyến tính với vận tốc không đổi (constant velocity). Trong hệ thống, không gian trạng thái của một phương tiện được biểu diễn bằng vector trạng thái 7 chiều (x) [7]: 
+ 
+Trong đó:
+•	cx, cy: Tọa độ điểm tâm của hộp giới hạn (pixels). 
+•	s: Diện tích (scale) của hộp giới hạn (pixels²). 
+•	r: Tỷ lệ khung hình hộp giới hạn (aspect ratio = width/height). 
+•	 : Vận tốc dịch chuyển của điểm tâm theo trục hoành và trục tung (pixels/frame). 
+•	 : Tốc độ thay đổi diện tích hộp giới hạn theo thời gian (pixels²/frame). 
+Trong khi đó, vector đo lường thu nhận trực tiếp từ module hậu xử lý YOLOv8 là vector 4 chiều (z):  
+Chu trình vận hành của Bộ lọc Kalman tại mỗi khung hình gồm hai bước đệ quy tuyến tính [9]:
+Giai đoạn Dự đoán (Predict): Dự báo trạng thái   và ma trận hiệp biến sai số P ở thời điểm hiện tại dựa trên trạng thái ở quá khứ thông qua ma trận chuyển tiếp trạng thái F (kích thước 7 x 7) và ma trận nhiễu hệ thống Q: 
+ 
+ 
+Giai đoạn Cập nhật (Update): Khi nhận được kết quả đo lường mới   từ mô hình AI, bộ lọc tiến hành tính toán hệ số tăng Kalman  , cập nhật lại trạng thái tối ưu   và ma trận sai số   thông qua ma trận đo lường H (kích thước 4 x 7) và ma trận nhiễu phép đo R:
+ 
+ 
+ 
+2.1.4.	Thuật toán gán tối ưu Hungarian
+Để thiết lập mối liên kết giữa danh sách các hộp dự đoán từ Bộ lọc Kalman và các hộp nhận diện thực tế từ mạng YOLOv8 ở khung hình hiện tại, đề tài áp dụng thuật toán Hungarian (thuật toán Munkres) nhằm giải quyết bài toán gán tuyến tính tối ưu [10]. Tiến trình này bắt đầu bằng việc xây dựng một ma trận chi phí (Cost Matrix) kích thước N x M, trong đó giá trị tại mỗi phần tử   biểu diễn độ sai lệch hình học giữa hộp dự đoán thứ i và hộp nhận diện thứ $j$, được xác định thông qua nghịch đảo của chỉ số IoU theo công thức:
+ 
+Với độ phức tạp tính toán  , thuật toán tiến hành biến đổi ma trận dựa trên các phép khử theo hàng và cột kết hợp đánh dấu các vị trí số không (starred/primed zeros) nhằm tìm ra đường đi tăng dần (augmenting path) [11]. Đầu ra tối ưu thu được là phương án ghép cặp có tổng chi phí liên kết cực tiểu, đảm bảo hệ thống duy trì mã định danh ID nhất quán cho phương tiện ngay cả trong các tình huống che khuất tạm thời.
+2.1.5.	Mô hình học Camera Pinhole
+Để thực hiện chức năng cảnh báo va chạm, hệ thống cần chuyển đổi thông tin từ tọa độ pixel trên ảnh 2D sang không gian khoảng cách vật lý 3D. Đề tài ứng dụng mô hình hình học Camera Pinhole dựa trên nguyên lý tam giác đồng dạng của hệ thấu kính đơn mắt để ước lượng khoảng cách từ vị trí đặt camera đến đuôi xe phía trước [12]. Theo nguyên lý quang học, tỷ lệ giữa chiều cao hình ảnh trên cảm biến và tiêu cự thấu kính tương đương với tỷ lệ giữa chiều cao thực tế ngoài đời và khoảng cách dọc của vật thể đó, tuân theo phương trình  . Phương pháp hình học này cho phép hệ thống tính toán gián tiếp độ sâu trường ảnh một cách hiệu quả mà không cần can thiệp phần cứng đo khoảng cách chủ động [13]. Từ hệ thức đồng dạng này, công thức xác định khoảng cách vật lý D (mét) được thiết lập như sau: 
+ 
+Trong đó:
+•	D: Khoảng cách dọc theo trục di chuyển từ vị trí gắn camera đến phương tiện mục tiêu phía trước (m). 
+•	 : Tiêu cự nội tại dọc của camera (được xác định chính xác thông qua các thông số cấu hình calibration từ bộ dữ liệu KITTI là 721.5377 pixels). 
+•	 : Chiều cao thực tế trung bình của phương tiện mục tiêu (hệ thống sử dụng chiều cao tham chiếu riêng biệt cho từng lớp đối tượng: xe ô tô con 1.5m, xe tải 2.8m, xe buýt 3.2m, người 1.7m - chi tiết tại mục 3.4.2). 
+•	 : Chiều cao của hộp giới hạn bounding box trích xuất được trực tiếp trên khung ảnh ảnh (pixels).
+2.1.6.	Cơ sở hình học của thuật toán Lọc hành lang (Ego-Lane Corridor Filtering)
+Để tối thiểu hóa hiện tượng cảnh báo giả từ phương tiện ở làn đường lân cận, hệ thống thiết lập phân hệ lọc hành lang an toàn dựa trên mô hình hình học Camera Pinhole [14]. Thuật toán áp dụng nguyên lý chiếu ngược (back-projection) để xác định độ lệch ngang vật lý ( ) của đối tượng mục tiêu từ không gian ảnh 2D mà không cần sử dụng các phép toán lượng giác phức tạp. Kế thừa giá trị khoảng cách dọc Z (độ sâu) thu được từ mô hình Pinhole, tọa độ ngang thực tế của phương tiện được xác định trực tiếp dựa trên khoảng cách từ tâm hộp giới hạn ( ) đến tâm quang học cảm biến ( ) và tiêu cự ngang ( ) theo phương trình:
+ 
+Hệ thống tiến hành định hình một hành lang an toàn ảo đối xứng qua trục di chuyển của xe chủ với nửa biên chiều rộng quy định là 1.5 mét. Dựa trên ma trận tọa độ thế giới vừa trích xuất, chỉ những phương tiện thỏa mãn điều kiện ràng buộc hình học dưới dạng bất đẳng thức   m mới được xác định là chướng ngại vật cùng làn. Các đối tượng nằm ngoài vùng hành lang này sẽ bị loại bỏ khỏi luồng tính toán Thời gian trước va chạm (TTC), giúp tối ưu hóa tài nguyên xử lý của vi xử lý biên [15].
+2.1.7.	Phương pháp lọc nhiễu và làm mượt dữ liệu chuỗi thời gian
+Trong thực tế, do sự rung lắc của camera và sai số nhỏ định kỳ của hộp giới hạn (bbox jitter), các giá trị khoảng cách và tốc độ thu được thường chứa nhiều nhiễu gai (spike noise). Hệ thống ứng dụng hai nền tảng lý thuyết lọc tín hiệu chuỗi thời gian [16]:
+1.	Bộ lọc trung bình động hàm mũ (EMA - Exponential Moving Average): Được sử dụng để làm mượt các luồng dữ liệu khoảng cách (D) và chỉ số TTC. EMA cấp trọng số giảm dần theo cấp số nhân cho các dữ liệu quá khứ, giúp bộ lọc phản ứng nhanh với sự thay đổi nhưng vẫn giữ được độ mượt. Công thức toán học của bộ lọc EMA tại thời điểm t là:
+ 
+Trong đó,   là giá trị thô đo được tại thời điểm hiện tại,   và   là giá trị đã làm mượt,   là hệ số làm mượt (đề tài sử dụng  ).
+2.	Bộ lọc trung vị (Median Filter): Khác với bộ lọc trung bình dễ bị nhiễu bởi các giá trị ngoại lai (outliers), bộ lọc trung vị sắp xếp một cửa sổ chứa N mẫu dữ liệu theo thứ tự biên độ và lấy giá trị nằm ở chính giữa. Đề tài ứng dụng Median Filter (với kích thước cửa sổ 5 mẫu) vào module hồi quy tốc độ tiếp cận, giúp loại bỏ triệt để các kết quả vận tốc bị tính toán sai lệch đột biến do hiện tượng trượt hộp giới hạn (bbox slippage) [17].
+2.1.8.	Mô hình Hồi quy tuyến tính và phương pháp tính thời gian va chạm TTC
+Để ước lượng vận tốc tiếp cận tương đối  , thay vì sử dụng đạo hàm khoảng cách giữa hai khung hình liên tiếp vốn dễ bị nhiễu do dao động hộp giới hạn và sự trồi sụt FPS, đề tài áp dụng phương pháp hồi quy tuyến tính bình phương tối thiểu (Least Squares) trên cửa sổ trượt gồm tối đa 16 mẫu dữ liệu [18]. Với trục hoành là mốc thời gian thực t (giây) trích xuất từ hệ thống và trục tung là khoảng cách đã làm mượt D (mét), hệ số góc của đường hồi quy biểu diễn mức độ thay đổi khoảng cách theo phương trình: 
+ 
+Do khoảng cách giảm dần khi hai phương tiện tiến lại gần, vận tốc tiếp cận được xác định là:  . Phương pháp dựa trên mốc thời gian thực (Timestamp-based) này giúp chuỗi vận tốc đạt độ trơn tru cao và hoàn toàn miễn nhiễm với sự gián đoạn khung hình.
+Tính toán Thời gian va chạm (TTC): Chỉ số TTC là đại lượng cốt lõi định nghĩa số giây còn lại trước khi va chạm xảy ra nếu hai phương tiện giữ nguyên vận tốc tương đối hiện tại. Hệ thống tích hợp song song hai cơ chế tính toán để bổ trợ lẫn nhau: 
+1.	Distance-Based TTC: Tính toán dựa trên khoảng cách không gian vật lý thực tế phục hồi từ mô hình pinhole:
+  
+2.	Scale-Based TTC: Tính toán dựa trực tiếp trên tốc độ giãn nở diện tích hộp giới hạn trong ảnh mà không cần biết tham số tiêu cự camera, thông qua biến trạng thái diện tích s và vận tốc thay đổi diện tích   trích xuất từ Bộ lọc Kalman [19]:
+ 
+Giá trị TTC cuối cùng   được tổng hợp từ hai phương pháp theo tỷ lệ trọng số thích hợp (70% cho phương pháp khoảng cách và 30% cho phương pháp thay đổi kích thước hình ảnh) nhằm tối ưu hóa độ chính xác:  , tăng cường tính ổn định và triệt tiêu các cảnh báo sai lệch cho hệ thống an toàn. 
+2.1.9.	Lý thuyết trễ (Hysteresis) trong nhận diện trạng thái
+Trong bài toán phân loại trạng thái động học phương tiện (như đứng yên hoặc di chuyển cùng chiều), việc sử dụng một ngưỡng vận tốc cố định dễ gây ra hiện tượng nhấp nháy tín hiệu (flickering) khi vận tốc đối tượng dao động quanh biên giới hạn. Để khắc phục, đề tài áp dụng lý thuyết vòng trễ (Hysteresis) từ hệ thống điều khiển tự động thông qua thuật toán chốt trạng thái (Sticky Lock) [20]. Thay vì phụ thuộc vào giá trị vận tốc tức thời, thuật toán thiết lập sự ràng buộc thông qua hai bộ đếm độc lập và hai ngưỡng chuyển đổi theo thời gian (khung hình). Cụ thể, trạng thái phương tiện chỉ chuyển từ di chuyển sang đứng yên khi vận tốc bằng không được duy trì liên tục trong 5 khung hình (vòng lặp khóa). Ngược lại, để thoát khỏi trạng thái đứng yên, đối tượng bắt buộc phải duy trì vận tốc dịch chuyển liên tục trong tối thiểu 8 khung hình (vòng lặp mở). Sự chênh lệch có tính toán giữa ngưỡng khóa và ngưỡng mở này định hình một vòng trễ động học, giúp hệ thống chốt trạng thái kiên định và triệt tiêu hoàn toàn nhiễu môi trường tại các thời điểm giao thời [21].
+2.2.	SƠ ĐỒ KHỐI HỆ THỐNG
+Để hiện thực hóa các cơ sở lý thuyết thành một phần mềm hoạt động trong thời gian thực, hệ thống được thiết kế theo kiến trúc đường ống (Pipeline Architecture). Luồng xử lý được phân rã từ mức tổng thể đến các module chi tiết nhằm đảm bảo tính toàn vẹn dữ liệu từ lúc thu nhận hình ảnh đến khi phát tín hiệu cảnh báo.
+2.2.1.	Sơ đồ khối tổng thể của hệ thống (Pipeline)
+ 
+Hình 2.1: Sơ đồ khối tổng thể của hệ thống
+Như được mô tả trong Sơ đồ khối tổng thể, dữ liệu đầu vào của hệ thống là luồng video trực tiếp từ camera. Tại mỗi khung hình (frame), dữ liệu sẽ tuần tự đi qua 4 phân hệ cốt lõi: Đầu tiên, phân hệ Thị giác máy tính (Computer Vision) tiến hành tiền xử lý ảnh, chạy suy diễn mạng YOLOv8 để định vị phương tiện và ứng dụng thuật toán SORT nhằm duy trì mã định danh (ID) theo dõi liên tục. Dữ liệu không gian 2D sau đó được giao cho phân hệ Phân tích Không gian và Động học để quy đổi sang khoảng cách vật lý thông qua mô hình Pinhole, đồng thời ước lượng vận tốc tiếp cận bằng phương pháp hồi quy tuyến tính. Dựa trên các thông số động học này, phân hệ Đánh giá rủi ro tính toán Thời gian trước va chạm (TTC) và áp dụng các bộ lọc hình học (như Ego-lane filtering) để xác định chính xác mức độ nguy hiểm. Cuối cùng, phân hệ Phản hồi tiếp nhận kết quả để kích hoạt tín hiệu âm thanh và kết xuất lớp phủ trực quan (HUD) lên màn hình giám sát, hoàn tất một chu trình khép kín.
+2.2.2.	Cấu trúc khối tiền xử lý, nhận diện và theo dõi:
+ 
+Hình 2.2: Sơ đồ khối luồng xử lý thị giác máy tính
+Quá trình định vị phương tiện đòi hỏi sự phối hợp chặt chẽ giữa học sâu và thuật toán lưu vết. Khung hình gốc ban đầu bắt buộc phải trải qua bước tiền xử lý (Resize Letterbox, chuẩn hóa pixel) để khớp với đầu vào của mạng nơ-ron. Khối suy diễn (Inference) được thiết kế với kiến trúc Dual-Backend linh hoạt: sử dụng TensorRT (.engine) tối ưu hóa FP16 khi chạy trên Jetson Nano, hoặc sử dụng ONNX Runtime khi phân tích ngoại tuyến trên Desktop. Các hộp giới hạn sau khi vượt qua bộ lọc NMS sẽ được đưa vào thuật toán SORT. Tại đây, Bộ lọc Kalman tiến hành dự đoán vị trí, thuật toán Hungarian thực hiện gán nhãn ID, giúp hệ thống duy trì được danh sách các đối tượng đang hoạt động (Confirmed Tracks) một cách ổn định.
+2.2.3.	Cấu trúc chi tiết khối phân tích vật lý và tính toán TTC
+ 
+Hình 2.3: Sơ đồ khối xử lý khối vật lý và tính TTC
+Đây là lõi xử lý toán học của hệ thống. Với mỗi đối tượng đã được gán ID, hệ thống trích xuất tọa độ để tính khoảng cách dọc. Điểm đặc biệt trong thiết kế là chuỗi giá trị khoảng cách này không được dùng để tính đạo hàm vận tốc ngay lập tức, mà được lưu vào một bộ đệm cửa sổ trượt (Sliding Window Buffer) kèm theo nhãn thời gian thực (Timestamp). Thuật toán Hồi quy tuyến tính sẽ đọc dữ liệu từ bộ đệm này để tìm ra hệ số góc (chính là Vận tốc tiếp cận), giúp khắc phục hoàn toàn sự sai số do hiện tượng tụt FPS của phần cứng. Cuối cùng, thông số khoảng cách và vận tốc được kết hợp để tính ra TTC, sau đó đi qua bộ lọc hàm mũ EMA để tạo ra một đường cong rủi ro mượt mà, triệt tiêu hiện tượng nhiễu cục bộ.
+2.2.4.	Cấu trúc xử lý đa luồng (Multi-threading) và cảnh báo
+ 
+Hình 2.4: Sơ đồ khối xử lý đa luồng và cảnh báo
+Để đảm bảo tốc độ FPS của hệ thống thị giác máy tính không bị suy giảm khi phát tín hiệu cảnh báo, kiến trúc phần mềm áp dụng cơ chế đa luồng (Multi-threading). Luồng chính (Main Thread) thực hiện việc tính toán và phân loại rủi ro thành 4 cấp độ (SAFE, CAUTION, DANGER, CRITICAL). Khi trạng thái rủi ro thay đổi, luồng chính sẽ đẩy tín hiệu cảnh báo vào một hàng đợi (Queue) thông qua cơ chế Condition Variable. Một luồng âm thanh độc lập (Audio Thread) liên tục lắng nghe hàng đợi này và tiến hành kích hoạt các tệp âm thanh tương ứng một cách bất đồng bộ (non-blocking). Cơ chế này đi kèm vòng trễ Cooldown để đảm bảo các cảnh báo âm thanh không bị chồng chéo hay ngắt quãng đột ngột.
+2.3.	CÁC PHẦN CỨNG ĐƯỢC SỬ DỤNG TRONG HỆ THỐNG
+Để hiện thực hóa hệ thống FCW hoạt động độc lập tại biên (Edge Computing) với chi phí tối ưu, việc lựa chọn phần cứng đòi hỏi sự cân bằng khắt khe giữa năng lực tính toán AI, mức tiêu thụ năng lượng và băng thông truyền tải dữ liệu. Đề tài triển khai bo mạch xử lý nhúng NVIDIA Jetson Nano phiên bản tích hợp module nhớ 16GB eMMC đóng vai trò là hạt nhân điều khiển trung tâm. Nền tảng này sở hữu GPU kiến trúc Maxwell với 128 lõi CUDA, cho phép tăng tốc phần cứng mạnh mẽ cho các phép toán ma trận của mạng nơ-ron sâu YOLOv8s; đi kèm là CPU ARM Cortex-A57 4 nhân và bộ nhớ RAM 4GB LPDDR4, cung cấp đủ tài nguyên để vận hành hệ điều hành Ubuntu và duy trì đường ống xử lý đa luồng (multi-threaded pipeline) bằng C++. Ý nghĩa cốt lõi của việc sử dụng Jetson Nano là khả năng tương thích hoàn toàn với hệ sinh thái tăng tốc NVIDIA TensorRT ở chuẩn độ chính xác bán chuẩn (FP16), giúp hệ thống đạt hiệu năng thời gian thực với mức tiêu thụ điện năng chỉ xấp xỉ 10W. Ngoài ra, việc thay thế thẻ MicroSD truyền thống bằng bộ nhớ eMMC 16GB tích hợp trên bo mạch giúp nâng cao tốc độ truy xuất I/O và đảm bảo độ bền cơ học vững chắc, hạn chế rủi ro lỗi hệ thống file (file system corruption) khi phương tiện di chuyển trong điều kiện rung lắc.
+Nhằm đảm bảo tính cơ động và khả năng vận hành độc lập ổn định trên phương tiện giao thông thực tế, phân hệ nguồn của bo mạch được cấp điện bởi pin sạc dự phòng Ugreen Nexode công suất cao (dung lượng 25000mAh, hỗ trợ phân phối điện năng lên tới 200W). Dòng điện đầu ra từ pin sạc được đấu nối qua một mạch tăng cường dòng điện (mạch tăng Ampe) bổ trợ. Giải pháp phối hợp này đảm bảo duy trì liên tục cường độ dòng điện tối thiểu ổn định từ 3A đến 4A tại mức điện áp 5V, ngăn ngừa triệt để hiện tượng sụt nguồn đột ngột (undervoltage drop) khi bo mạch kích hoạt chế độ tối đa hiệu năng (MAXN mode - 10W) và GPU thực hiện các tác vụ suy diễn học sâu nặng.
+Song song với bo mạch chủ, phân hệ thu nhận dữ liệu không gian vật lý phía trước sử dụng một module camera đơn mắt trang bị cảm biến Sony IMX219 (độ phân giải 8 Megapixels). Thay vì sử dụng các loại webcam kết nối qua cổng USB vốn tạo ra nút thắt cổ chai (bottleneck) về băng thông và chiếm dụng tài nguyên tính toán của CPU, camera trong đề tài được ghép nối thông qua giao diện phần cứng tốc độ cao MIPI CSI-2 (Camera Serial Interface). Chuẩn giao tiếp này cho phép truyền tải luồng dữ liệu hình ảnh trực tiếp vào khối xử lý tín hiệu số (ISP - Image Signal Processor) tích hợp sẵn trên Jetson Nano. Thiết kế này đưa dữ liệu video đi thẳng vào không gian bộ nhớ dùng chung, tối thiểu hóa độ trễ truyền dữ liệu (latency) từ thấu kính đến bộ đệm xử lý của mã nguồn C++, đảm bảo tính đồng bộ thời gian thực cho toàn bộ chuỗi xử lý phản hồi an toàn.
+2.4.	CÁC PHẦN MỀM VÀ THƯ VIỆN ĐƯỢC SỬ DỤNG
+Để khai thác tối đa sức mạnh của phần cứng máy tính nhúng và đáp ứng yêu cầu xử lý thời gian thực của hệ thống cảnh báo va chạm, hệ sinh thái phần mềm được thiết kế và tinh chỉnh kỹ lưỡng từ cấp độ hệ điều hành cho đến các thư viện xử lý cấp cao.
+Toàn bộ quá trình cấu hình môi trường và thực thi hệ thống được triển khai trên nền tảng hệ điều hành Linux (phân phối Ubuntu) thông qua bộ công cụ phát triển phần mềm toàn diện NVIDIA JetPack SDK. Sự kết hợp này mang lại một hệ điều hành nhúng chuyên biệt mang tên L4T (Linux for Tegra), cung cấp khả năng quản lý tài nguyên hệ thống tối ưu, cấp phát bộ nhớ hiệu quả và hỗ trợ nguyên bản cho các công cụ lập trình hệ thống. JetPack SDK đóng vai trò là hạ tầng cơ sở, tích hợp sẵn các lớp trình điều khiển phần cứng cấp thấp nhằm đảm bảo luồng phần mềm ứng dụng có thể tương tác trực tiếp với kiến trúc vi xử lý đồ họa của bo mạch nhúng với độ trễ truyền dữ liệu tối thiểu [22].
+Để tối ưu hóa hiệu quả nghiên cứu và triển khai, đề tài áp dụng phương pháp phát triển đa ngôn ngữ (Polyglot Programming) nhằm khai thác thế mạnh đặc thù của C++ và Python trong hai giai đoạn tách biệt. Ở phân hệ nghiên cứu ngoại tuyến (offline), ngôn ngữ Python được sử dụng độc quyền để xây dựng, tiền xử lý dữ liệu và huấn luyện tinh chỉnh mô hình học sâu nhờ cú pháp linh hoạt cùng hệ sinh thái AI phong phú. Ngược lại, ngôn ngữ C++17 đóng vai trò là hạt nhân cốt lõi để hiện thực hóa đường ống xử lý thời gian thực trực tiếp tại biên. Việc sử dụng C++ giúp hệ thống vượt qua các giới hạn cố hữu của Python như cơ chế khóa phiên dịch toàn cục (Global Interpreter Lock - GIL) và độ trễ ngẫu nhiên từ bộ thu gom rác tự động (Garbage Collection), cho phép kiểm soát tài nguyên phần cứng ở mức thấp để duy trì tốc độ quét khung hình ổn định ở mức tối đa [23].
+Đối với các tác vụ xử lý ma trận điểm ảnh, thư viện thị giác máy tính mã nguồn mở OpenCV (phiên bản C++) được tích hợp để đảm nhận hai vai trò bản lề bao gồm tiền xử lý tín hiệu ảnh đầu vào và trực quan hóa dữ liệu động học đầu ra. Trong luồng thu nhận hình ảnh, OpenCV chịu trách nhiệm giải mã luồng video từ giao diện MIPI CSI-2, thực hiện các phép biến đổi không gian màu và chuẩn hóa kích thước ma trận pixel dưới dạng cấu trúc letterbox trước khi chuyển tiếp dữ liệu vào mạng nơ-ron. Ở giai đoạn kết xuất đồ họa, thư viện phụ trách vẽ các hộp giới hạn định danh đối tượng, lưu vết quỹ đạo bám sát, đồng thời khởi tạo giao diện lớp phủ trực quan (HUD Overlay) để hiển thị các thông số khoảng cách, vận tốc tương đối và mức độ rủi ro va chạm lên màn hình giám sát [24].
+Chu trình quản lý cấu hình kiến trúc mạng YOLOv8 được điều phối thông qua hệ sinh thái phần mềm Ultralytics Framework. Trong giai đoạn huấn luyện offline, framework này cung cấp giao diện lập trình ứng dụng (API) nhất quán để tự động hóa kỹ thuật tăng cường dữ liệu (Data Augmentation) và điều phối các luồng tính toán của PyTorch trên tập dữ liệu chuyên biệt. Khi chuyển sang giai đoạn triển khai thực tế, Ultralytics đóng vai trò là công cụ bản lề hỗ trợ xuất đồ thị tính toán của mạng sang định dạng trung gian ONNX. Đây là bước xử lý quyết định giúp loại bỏ hoàn toàn sự phụ thuộc vào môi trường Python cồng kềnh, tạo tiền đề cho mã nguồn C++ thực hiện các bước biên dịch tối ưu hóa sâu xuống tầng mã máy [25].
+Nhằm triệt tiêu nút thắt cổ chai hiệu năng khi thực thi các phép toán ma trận khối lượng lớn của mạng nơ-ron sâu, hệ thống triển khai giải pháp tăng tốc phần cứng đồng bộ thông qua kiến trúc tính toán song song NVIDIA CUDA và các framework suy diễn chuyên dụng bao gồm ONNX Runtime và NVIDIA TensorRT. CUDA đóng vai trò là lớp bệ đỡ nền tảng vững chắc nhất, cho phép mã nguồn C++ can thiệp trực tiếp vào không gian phần cứng của GPU Maxwell để phân rã ma trận hình ảnh thành hàng ngàn luồng (threads) nhỏ thực thi song song độc lập [26]. Trên nền tảng tăng tốc này, framework ONNX Runtime được cấu hình để chạy thực nghiệm đa nền tảng và đối soát lỗi ngoại tuyến trên máy tính cá nhân. Đối với môi trường nhúng Jetson Nano, mô hình được biên dịch tối ưu hóa đồ thị đồ thị tính toán sang định dạng TensorRT Engine, áp dụng kỹ thuật lượng hóa để ép kiểu trọng số từ số thực dấu phẩy động 32-bit (FP32) xuống bán chuẩn 16-bit (FP16), giúp giảm một nửa mức tiêu thụ băng thông bộ nhớ và gia tăng đáng kể tốc độ suy diễn tại biên [27].
+
+ 
+CHƯƠNG 3:	THIẾT KẾ VÀ THỰC HIỆN HỆ THỐNG
+3.1.	THIẾT KẾ VÀ CẤU HÌNH PHẦN CỨNG HỆ THỐNG
+3.1.1.	Sơ đồ kết nối vật lý
+Hệ thống phần cứng FCW được thiết kế với tiêu chí tối giản và "cắm là chạy" (plug-and-play), bao gồm ba thành phần vật lý kết nối trực tiếp với nhau:
+Kết nối Camera CSI: Module camera IMX219 được gắn vào cổng MIPI CSI-2 trên bo mạch Jetson Nano thông qua cáp flat ribbon 15-pin. Giao diện CSI-2 cung cấp đường truyền dữ liệu hình ảnh tốc độ cao trực tiếp vào bộ xử lý tín hiệu ảnh phần cứng (ISP - Image Signal Processor) trên SoC Tegra X1, cho phép luồng video 1280×720 ở 30fps đi thẳng vào bộ nhớ GPU mà không chiếm CPU. Đây là ưu thế vượt trội so với webcam USB thông thường vốn phải đi qua bus USB 2.0 với băng thông giới hạn và tiêu tốn CPU cho giải mã.
+Cấp nguồn điện: Bo mạch Jetson Nano được cấp nguồn 5V/4A thông qua jack DC barrel (J48). Khi triển khai trên ô tô, nguồn điện được lấy từ cổng OBD-II hoặc bộ chuyển đổi từ ắc-quy 12V xuống 5V DC thông qua module buck converter. Chế độ năng lượng MaxN (10W TDP) được kích hoạt nhằm tối đa hóa xung nhịp GPU và CPU cho tác vụ AI.
+Tản nhiệt: Do hệ thống chạy suy diễn AI liên tục, nhiệt độ SoC có thể đạt 70-80°C. Một quạt tản nhiệt 5V PWM được gắn trực tiếp lên heatsink kim loại của module Jetson Nano, kết nối vào header J15 (FAN). Hệ điều hành tự động điều khiển tốc độ quạt dựa trên nhiệt độ chip, đảm bảo nhiệt độ duy trì dưới 65°C trong quá trình vận hành.
+Vị trí lắp đặt trên xe: Camera được đặt cố định trên taplo phía sau kính chắn gió, hướng thẳng về phía trước, ở độ cao khoảng 1.2 - 1.6m so với mặt đường. Bo mạch Jetson Nano được bố trí bên dưới taplo, kết nối với màn hình phụ (hoặc gương chiếu hậu kỹ thuật số) để hiển thị giao diện HUD cảnh báo. 
+3.1.2.	Cấu hình môi trường triển khai (Deployment Setup)
+Môi trường phần mềm tại biên được thiết lập đồng bộ trên bộ công cụ NVIDIA JetPack SDK 4.6.x, tích hợp hệ điều hành L4T (Linux for Tegra) phát triển từ nhân Ubuntu 18.04 kết hợp các thư viện nền tảng gồm CUDA Toolkit 10.2, cuDNN 8.0 và TensorRT 8.2.1. Để đối phó với giới hạn dung lượng bộ nhớ vật lý của bo mạch (4GB RAM) – yếu tố thường gây ra lỗi tràn bộ nhớ (Out of Memory) trong quá trình tối ưu hóa mạng nơ-ron chuyên sâu – hệ thống được cấu hình bổ sung một không gian bộ nhớ ảo (Swap file) với dung lượng 8GB được cấp phát thủ công. Đồng thời, nền tảng vi xử lý được thiết lập vận hành cố định ở chế độ MaxN (10W TDP) và khóa toàn bộ xung nhịp phần cứng ở ngưỡng giới hạn cao nhất, sẵn sàng cung cấp tài nguyên tối đa cho luồng suy diễn thời gian thực.
+Toàn bộ kiến trúc mã nguồn ứng dụng được quản lý cấu trúc bằng CMake và biên dịch trực tiếp trên Jetson Nano bằng GCC. Bằng việc kích hoạt cờ biên dịch phát hành (Release Mode với cờ -O3), trình biên dịch tự động thực hiện các thuật toán tối ưu hóa mã máy sâu và triệt tiêu toàn bộ luồng dữ liệu gỡ lỗi (debug), giúp tăng tốc độ thực thi đáng kể của các module logic nội bộ. Quá trình thiết lập liên kết phần mềm này đồng thời vô hiệu hóa backend ONNX Runtime (vốn chỉ sử dụng cho khâu kiểm thử trên máy tính cá nhân) và chuyển giao toàn bộ quyền xử lý cho đường ống tăng tốc phần cứng của CUDA và TensorRT.
+Ở chặng cuối của khâu triển khai, tệp cấu trúc mô hình định dạng ONNX được chuyển đổi sang tệp nhị phân thực thi độc quyền TensorRT Engine (.engine) thông qua công cụ dòng lệnh trtexec ở chuẩn độ chính xác bán chuẩn (FP16). Xuyên suốt tiến trình biên dịch tối ưu này, TensorRT áp dụng thuật toán tự động tinh chỉnh (auto-tuning) để rà soát, lựa chọn và ghép cặp các kernel tính toán CUDA tối ưu nhất cho từng lớp mạng tích chập dựa trên đặc thù kiến trúc vật lý của GPU Maxwell. Sản phẩm nhị phân thu được mang tính đóng gói nền tảng (platform-specific), giúp cắt giảm tối đa băng thông bộ nhớ và đẩy tốc độ suy diễn tại biên đạt mức giới hạn phần cứng cho phép.
+3.2.	CHUẨN BỊ DỮ LIỆU VÀ HUẤN LUYỆN MÔ HÌNH YOLOv8
+Nhằm tối ưu hóa độ chính xác chuyên biệt cho bài toán hệ thống hỗ trợ lái xe (ADAS), tập dữ liệu BDD100K được lựa chọn làm cơ sở huấn luyện thay thế cho tập dữ liệu bối cảnh chung COCO. Việc định hướng mục tiêu từ 80 phân lớp phổ thông xuống còn 10 phân lớp đối tượng giao thông cốt lõi (xe con, xe tải, người đi bộ, biển báo...) kết hợp cùng cơ sở dữ liệu đa dạng điều kiện thời tiết và ánh sáng giúp mô hình mạng nơ-ron trích xuất được các đặc trưng không gian bền vững nhất, đồng thời thu gọn đáng kể quy mô trọng số. Quá trình huấn luyện tinh chỉnh (fine-tuning) được thực thi ngoại tuyến qua framework Ultralytics, kế thừa trọng số khởi tạo của kiến trúc YOLOv8s. Xuyên suốt tiến trình hội tụ kéo dài 100 chu kỳ (epochs), hệ thống áp dụng thuật toán tối ưu hóa SGD với chiến lược suy giảm tỷ lệ học tập Cosine Annealing, đồng thời kích hoạt linh hoạt các kỹ thuật tăng cường dữ liệu phi tuyến như Mosaic, MixUp và biến đổi không gian màu HSV nhằm triệt tiêu tối đa rủi ro quá khớp (overfitting).
+Sau khi thu được bộ trọng số hội tụ tối ưu, cấu trúc mạng PyTorch gốc được giản lược hóa và xuất sang định dạng trung gian ONNX (chuẩn Opset 12) nhằm phục vụ bước biên dịch tại biên. Tại mắt xích chuyển đổi bản lề này, để giải quyết bài toán đánh đổi (trade-off) giữa khả năng định vị phương tiện ở cự ly xa (từ 5m đến 50m) và tốc độ quét khung hình (FPS) trên phần cứng vi xử lý giới hạn, kích thước ma trận đầu vào (Input shape) được tinh chỉnh thực nghiệm về độ phân giải 768 x 448. Quyết định tối ưu hóa này giúp cắt giảm thành công 35% khối lượng phép toán tích chập bên trong đồ thị mạng, định hình cấu trúc tensor đầu ra ở mức [1, 14, 7056] (tương ứng 4 tham số hộp giới hạn và 10 xác suất phân lớp trên tổng số 7056 điểm neo). Cấu trúc này tạo tiền đề tiên quyết để luồng suy diễn dữ liệu không gặp hiện tượng nghẽn cổ chai khi chuyển giao cho bộ tăng tốc TensorRT trên bo mạch Jetson Nano.
+3.3.	HIỆN THỰC HÓA LUỒNG THỊ GIÁC MÁY TÍNH
+Phần này trình bày chi tiết cách hệ thống C++ xử lý luồng ảnh từ camera qua 3 giai đoạn: tiền xử lý, suy diễn AI và hậu xử lý.
+3.3.1.	Module thu nhận ảnh (Camera Module)
+Phân hệ thu nhận ảnh đảm nhận nhiệm vụ tiếp nhận luồng dữ liệu từ camera CSI hoặc USB. Thách thức lớn nhất tại đây là sự chênh lệch giữa tốc độ quét của camera (30 FPS) và tốc độ suy diễn AI (~8 FPS), gây ra hiện tượng tràn bộ đệm phần cứng và làm trễ luồng cảnh báo từ 2-3 giây.
+Để khắc phục triệt để, đề tài ứng dụng cơ chế xả bộ đệm kép. Ở tầng hệ thống (dành riêng cho camera CSI), một đường ống GStreamer được thiết lập can thiệp trực tiếp vào appsink với tham số drop=true và max-buffers=1, buộc trình điều khiển tự động hủy các khung hình cũ. Ở tầng ứng dụng, thuật toán xả bộ đệm dựa trên phép đo thời gian (Timing-based Buffer Draining) được tích hợp thông qua hàm grab() của OpenCV. Do lệnh grab() lấy khung hình có sẵn trong bộ đệm cực nhanh (< 1ms) nhưng sẽ mất nhiều thời gian (> 5ms) nếu phải chờ cảm biến quét khung hình mới, hệ thống tiến hành lặp đệ quy lệnh này kết hợp đo đạc thời gian thực thi. Ngay khi phát hiện chu kỳ grab() vượt ngưỡng 5ms, hệ thống xác định bộ đệm đã được giải phóng hoàn toàn và tiến hành gọi hàm retrieve() để trích xuất chính xác khung hình thời gian thực mới nhất đưa vào mạng nơ-ron.
+3.3.2.	Module tiền xử lý ảnh (Preprocessing Module)
+Phân hệ tiền xử lý ảnh đóng vai trò cầu nối quan trọng nhằm chuyển đổi ma trận điểm ảnh thô (độ phân giải gốc 1280 x 720, định dạng BGR) thu được từ camera thành khối tensor đầu vào chuẩn hóa, đáp ứng khắt khe các yêu cầu đầu vào của mạng YOLOv8. Quá trình biến đổi này được thực hiện tuần tự qua 4 bước cơ bản:
+Bước 1: Biến đổi hình học Letterbox: Thu nhỏ ảnh đồng tỷ lệ về kích thước mục tiêu 768 x 448 để tránh biến dạng vật thể. Phần viền dư thừa được đệm bằng pixel màu xám (giá trị 114) nhằm triệt tiêu nhiễu kích hoạt vùng biên cho các màng lọc tích chập.
+Bước 2: Chuyển đổi không gian màu: Thực hiện đảo kênh màu từ hệ BGR (tiêu chuẩn đọc của OpenCV) sang hệ RGB để khớp tuyệt đối với định dạng dữ liệu đã huấn luyện của mô hình.
+Bước 3: Chuẩn hóa biên độ (Normalization): Đưa các giá trị điểm ảnh từ dải số nguyên [0, 255] về dải số thực liên tục [0, 1] dưới định dạng 32-bit (float32) bằng cách chia cho hằng số 255.0.
+Bước 4: Tái cấu trúc bộ nhớ HWC sang CHW: Chuyển đổi layout lưu trữ ma trận từ dạng đan xen kênh (Height - Width - Channel) sang dạng các kênh liên tục (Channel - Height - Width) nhằm đáp ứng yêu cầu vi kiến trúc của TensorRT.
+Kết thúc chuỗi 4 bước tiền xử lý tuyến tính này, dữ liệu hình ảnh thô đã được định hình thành một khối tensor 4 chiều hoàn chỉnh với kích thước [1, 3, 448, 768], sẵn sàng nạp thẳng vào bộ nhớ đồ họa để tiến hành quá trình suy diễn (Inference).
+3.3.3.	Module suy diễn AI – Kiến trúc Dual-Backend
+Phân hệ suy diễn (Inference Module) đóng vai trò hạt nhân trong việc thực thi mạng nơ-ron YOLOv8 nhằm trích xuất ma trận tọa độ hộp giới hạn và điểm tin cậy của phương tiện. Để đáp ứng tính linh hoạt giữa môi trường phát triển và môi trường thực thi thực tế, hệ thống được thiết kế theo kiến trúc đa nền tảng (Dual-Backend). Cấu hình nội tại của phân hệ được chuẩn hóa chặt chẽ với các siêu tham số cốt lõi: kích thước tensor đầu vào 768 x 448, ngưỡng tin cậy tối thiểu (Confidence Threshold) 0.45, ngưỡng triệt tiêu cực đại cục bộ (NMS IoU) 0.5 và bộ lọc định dạng 10 phân lớp phương tiện chuyên biệt theo chuẩn tập dữ liệu BDD100K.
+Khi vận hành thực tế tại biên trên phần cứng NVIDIA Jetson Nano, hệ thống tự động kích hoạt backend TensorRT để khai thác sức mạnh của vi kiến trúc Maxwell. Quá trình suy diễn tại đây tuân thủ nghiêm ngặt quy trình quản lý bộ nhớ bất đồng bộ của nền tảng CUDA. Đầu tiên, tensor dữ liệu đã qua tiền xử lý được sao chép tốc độ cao từ vùng nhớ hệ thống (Host/CPU) sang không gian bộ nhớ vi xử lý đồ họa (Device/GPU). Tại đây, khối động cơ TensorRT (đã được lượng hóa FP16) tiến hành lan truyền tiến (forward pass) qua đồ thị mạng. Kết thúc quá trình tính toán, tensor kết quả đầu ra được truyền dẫn ngược trở lại CPU. Toàn bộ chu trình này được khóa bằng một chốt đồng bộ hóa luồng (Stream Synchronization) nhằm đảm bảo tính toàn vẹn của cấu trúc dữ liệu trước khi bàn giao cho phân hệ hậu xử lý.
+Ngược lại, đối với giai đoạn đối soát và kiểm thử thuật toán trên nền tảng máy tính cá nhân (Desktop PC), kiến trúc hệ thống linh hoạt chuyển đổi sang backend ONNX Runtime. Quá trình suy diễn lúc này diễn ra hoàn toàn trên CPU thông qua việc khởi tạo bộ nhớ đệm nội tại và thực thi trực tiếp đồ thị ONNX độc lập với hệ sinh thái CUDA. Sự luân chuyển mượt mà giữa hai backend này được kiểm soát tự động ở cấp độ tiền biên dịch (Preprocessing) thông qua cơ chế biên dịch có điều kiện (Conditional Compilation) của CMake. Trình biên dịch sẽ tự động loại bỏ các đoạn mã không thuộc về nền tảng đích, giúp mã máy (binary) sinh ra đạt mức độ tinh gọn tối đa và triệt tiêu hoàn toàn các thư viện phụ thuộc (dependencies) dư thừa.
+3.3.4.	Module hậu xử lý và NMS
+Phân hệ hậu xử lý (Post-processing Module) đảm nhận nhiệm vụ giải mã khối tensor thô đầu ra [1, 14, 7056] thành các thực thể đối tượng có ý nghĩa không gian. Quá trình này bắt đầu bằng việc duyệt qua toàn bộ 7056 điểm neo (anchor points) trên lưới đặc trưng. Tại mỗi điểm neo, hệ thống trích xuất đồng thời bốn tham số định vị hình học (cx, cy, w, h) và phân bố xác suất của 10 phân lớp đối tượng. Các dự đoán không đạt ngưỡng tin cậy tối thiểu (Confidence Threshold) hoặc không thuộc tập hợp phân lớp mục tiêu (như xe con, xe tải, xe máy) sẽ bị bộ lọc loại bỏ ngay lập tức nhằm giải phóng tài nguyên CPU. Những tọa độ tâm lưới hợp lệ sau đó được biến đổi tuyến tính thành định dạng tọa độ góc của hộp giới hạn ( ). Tiếp đó, thuật toán triệt tiêu cực đại cục bộ (Non-Maximum Suppression - NMS) được kích hoạt để rà soát, so sánh và giữ lại duy nhất hộp giới hạn có độ tin cậy cao nhất trong một cụm các dự đoán chồng chéo lên nhau, dựa trên ngưỡng giao thoa (IoU Threshold) đã được định nghĩa.
+Ở bước xử lý cuối cùng, nhằm biểu diễn chính xác vị trí phương tiện trên giao diện người dùng, hệ thống tiến hành thuật toán ánh xạ ngược tọa độ (Coordinate Remapping). Do các hộp giới hạn hiện tại đang được tính toán trong không gian ma trận letterbox (768  x 448), chúng cần được tinh chỉnh bằng cách trừ đi hệ số đệm xám (padding offset) sinh ra ở khâu tiền xử lý, sau đó chia ngược cho hệ số co giãn (scale factor). Phép biến đổi nghịch đảo này giúp khôi phục toàn bộ tọa độ nhận diện về đúng hệ quy chiếu của khung hình camera nguyên bản (độ phân giải 1280 x 720), khép lại hoàn chỉnh luồng xử lý thị giác máy tính và chuẩn bị bàn giao dữ liệu cho phân hệ theo dõi động học.
+3.4.	TRIỂN KHAI THUẬT TOÁN THEO DÕI VÀ TÍNH TOÁN RỦI RO
+Phần này trình bày cách hệ thống gán ID, duy trì quỹ đạo từng phương tiện và tính toán các đại lượng vật lý phục vụ cảnh báo.
+3.4.1.	Module theo dõi đa đối tượng (Object Tracker – SORT)
+Phân hệ theo dõi đa đối tượng tiếp nhận danh sách các hộp giới hạn từ mạng YOLOv8, chịu trách nhiệm gán mã định danh (ID) duy nhất và duy trì quỹ đạo (trajectory) liên tục cho từng phương tiện. Để đối phó với hiện tượng mất dấu do che khuất (occlusion) hoặc sai lệch nhận diện tức thời, thuật toán SORT được tinh chỉnh thực nghiệm với các siêu tham số khắt khe: ngưỡng giao thoa (IoU Threshold) tối thiểu để ghép cặp là 0.3, bán kính tìm kiếm tối đa 100 pixel. Vòng đời của một thực thể theo dõi (Track) được quản lý nghiêm ngặt theo mô hình máy trạng thái: từ trạng thái Tạm thời (Tentative) cần tối thiểu 3 khung hình xuất hiện liên tục để chuyển sang Xác nhận (Confirmed). Nếu đối tượng khuất tầm nhìn, hệ thống đưa vào trạng thái Mất dấu (Lost) và duy trì tối đa bộ đệm 30 khung hình trước khi Xóa bỏ (Deleted) hoàn toàn nhằm tối ưu hóa bộ nhớ RAM.
+Tại cấp độ vi mô, chu trình theo dõi ở mỗi khung hình được vận hành qua một đường ống 6 bước khép kín. Đầu tiên, Bộ lọc Kalman tiến hành lan truyền tiến để dự đoán trạng thái không gian 7 chiều ( ) của các quỹ đạo hiện có từ khung hình trước. Hệ thống sau đó thiết lập một ma trận chi phí (Cost Matrix) chéo giữa các hộp giới hạn vừa dự đoán và các hộp giới hạn thực tế vừa nhận diện. Để giải quyết bài toán gán (Linear Assignment Problem) trên ma trận này, thuật toán Hungarian (Munkres) được kích hoạt. Nhờ độ phức tạp thuật toán tối ưu  , bộ giải có khả năng hoàn tất việc tìm ra tổ hợp ghép cặp tối ưu (sai số định vị thấp nhất) với thời gian thực thi chưa tới 1 mili-giây đối với các kịch bản giao thông tiêu chuẩn (dưới 20 phương tiện). Dựa trên kết quả trả về, bộ lọc Kalman tiến hành cập nhật (hiệu chỉnh) lại vector trạng thái, khởi tạo các quỹ đạo mới hoặc dọn dẹp các quỹ đạo ảo.
+Bên cạnh nhiệm vụ định danh, ý nghĩa quan trọng nhất của phân hệ này nằm ở khả năng phân tích động học. Thay vì phải tính toán đạo hàm thô thông qua các khung hình liên tiếp vốn rất dễ nhiễu, hệ thống khai thác trực tiếp giá trị vận tốc biến thiên diện tích ( ) từ biến trạng thái nội tại thứ 7 của Bộ lọc Kalman. Biến trạng thái đã qua làm mượt này được trích xuất (thông qua hàm đóng gói) và truyền thẳng sang các module phía sau, đóng vai trò là tham số cốt lõi để tính toán chỉ số Thời gian trước va chạm dựa trên hiệu ứng giãn nở quang học (Scale-based TTC).
+3.4.2.	Module ước lượng khoảng cách (Distance Estimator)
+Để phục hồi thông tin chiều sâu (depth) từ không gian ảnh 2D, phân hệ ước lượng khoảng cách ứng dụng mô hình hình học camera lỗ kim (Pinhole Camera Model). Khoảng cách dọc D từ phần cứng thu nhận đến phương tiện phía trước được ước lượng tỷ lệ nghịch với chiều cao của hộp giới hạn trên ảnh thông qua hệ thức  , với   là tham số tiêu cự quy đổi theo điểm ảnh. Nhằm tối ưu hóa độ chính xác, thay vì sử dụng một hằng số chiều cao duy nhất cho mọi đối tượng, hệ thống triển khai cơ sở dữ liệu tham chiếu chiều cao động (Per-class Reference Height) được cá nhân hóa cho từng phân lớp. Việc gán định mức vật lý riêng biệt (ví dụ: xe con 1.5m, xe tải 2.8m, xe buýt 3.2m) giúp mô hình giảm thiểu sai số ước lượng một cách triệt để khi đối mặt với đa dạng các phương tiện có kích thước đặc thù trên đường.
+Tuy nhiên, trong quá trình vận hành thực tế, khi phương tiện tiến quá sát đầu xe chủ, hộp giới hạn thường bị cắt xén bởi các mép viền của khung hình (Edge Truncation). Khuyết điểm quang học này dẫn đến hiện tượng chiều cao pixel bị thu hẹp giả tạo, khiến khoảng cách ước lượng bị đẩy lùi ra xa một cách phi logic và gây nguy hiểm cho hệ thống cảnh báo. Để khắc phục, đề tài phát triển cơ chế lá chắn cắt viền (Edge Truncation Shield). Thuật toán liên tục giám sát tọa độ biên của hộp giới hạn; nếu phát hiện đối tượng chạm sát các lề ảnh (dưới ngưỡng 10 pixel) và chiếm tỷ lệ diện tích lớn, hệ thống sẽ đánh dấu dữ liệu là thiếu tin cậy. Khi đó, một thuật toán nội suy được kích hoạt để giới hạn (clamp) và bù đắp khoảng cách về ngưỡng an toàn thực tế (dưới 3 mét). Chuỗi khoảng cách thô này sau đó được đưa qua bộ lọc trung bình động hàm mũ (EMA) nhằm triệt tiêu nhiễu đo lường, tạo ra một quỹ đạo chiều sâu trơn tru và ổn định theo thời gian.
+Dựa trên quỹ đạo khoảng cách đã được làm mượt, hệ thống tiếp tục giải bài toán xác định hành lang làn đường của xe chủ (Ego-Lane Corridor). Tọa độ lệch ngang (Lateral Offset) của phương tiện đích được tính toán chính xác thông qua phép chiếu ngược Pinhole với hệ thức  , trong đó   là tọa độ tâm đối tượng và   là tọa độ điểm chính (Principal point) của quang trục. Trái ngược với các phương pháp xấp xỉ lượng giác bằng hàm arctan vốn mang nhiều sai số tích lũy, phép biến đổi không gian trực tiếp này giữ được độ chính xác hình học tuyệt đối. Nếu giá trị lệch ngang nằm trong giới hạn nửa chiều rộng hành lang an toàn đã được định nghĩa, phương tiện sẽ được phân loại là chướng ngại vật nằm trên quỹ đạo di chuyển trực tiếp (In Ego-path), làm cơ sở dữ liệu đầu vào cho khối đánh giá rủi ro va chạm.
+3.4.3.	Module ước lượng vận tốc tiếp cận (Speed Estimator)
+Phân hệ ước lượng vận tốc đóng vai trò trung tâm trong việc phân tích quỹ đạo không gian để trích xuất vận tốc tiếp cận tương đối ( ) giữa xe chủ và phương tiện phía trước. Thay vì áp dụng phương pháp đạo hàm khoảng cách giữa hai khung hình liên tiếp vốn cực kỳ nhạy cảm với hiện tượng rung lắc hộp giới hạn và sự trồi sụt tốc độ quét khung hình (FPS), hệ thống ứng dụng thuật toán Hồi quy tuyến tính bình phương tối thiểu (Least Squares Linear Regression). Thuật toán này được vận hành trên một cửa sổ trượt thu thập tối đa 16 mẫu dữ liệu kết hợp với mốc thời gian phần cứng thực tế (Timestamp-based). Bằng cách tính toán hệ số góc (slope) của đường thẳng hồi quy tối ưu, hệ thống xác định được mức độ suy giảm khoảng cách theo thời gian. Giá trị hệ số góc đảo dấu chính là vận tốc tiếp cận tương đối, mang lại một chuỗi dữ liệu động học có độ trơn mịn cao và phản ánh chính xác quy luật chuyển động vật lý.
+Dữ liệu vận tốc tiếp cận sau đó được dung hợp trực tiếp với vận tốc thực tế của xe chủ ( ). Nhằm đảm bảo tính chính xác tuyệt đối của tham số đầu vào, hệ thống tích hợp module giải mã độc lập để trích xuất vận tốc tiến (Forward Velocity) từ cảm biến định vị toàn cầu và quán tính (OXTS GPS/IMU) thuộc bộ dữ liệu KITTI. Dựa trên mối tương quan động học này, thuật toán tiến hành phân loại trạng thái phương tiện đích thành các nhóm: di chuyển cùng chiều, ngược chiều hoặc đứng yên. Đặc biệt, để đối phó với hiện tượng tín hiệu bị nhấp nháy (flickering) khi vận tốc dao động quanh ngưỡng, hệ thống kích hoạt cơ chế chốt trạng thái vòng trễ (Sticky Lock). Khi một phương tiện được nhận diện là đứng yên, hệ thống sẽ khóa chặt giá trị   cân bằng với  , duy trì tính ổn định tuyệt đối cho biến trạng thái cho đến khi đối tượng thể hiện gia tốc di chuyển rõ ràng trong nhiều khung hình liên tiếp.
+Điểm nhấn kỹ thuật tối ưu nhất của phân hệ này nằm ở khả năng triệt tiêu nhiễu cảnh báo giả thông qua cơ chế bù trừ chuyển động góc (Turn Suppression). Trong kịch bản vận hành thực tế, khi xe chủ thực hiện thao tác vào cua, sự dịch chuyển góc nhìn quang học sẽ tạo ra một vận tốc tiếp cận ảo cường độ cao, dễ đánh lừa hệ thống kích hoạt cảnh báo va chạm ngược chiều (False ONCOMING). Bằng cách khai thác trực tiếp dữ liệu tốc độ quay quanh trục Z (Yaw Rate) từ cảm biến IMU, hệ thống liên tục rà soát trạng thái góc lái. Nếu phát hiện tốc độ góc vượt ngưỡng thiết lập (0.05 rad/s), hệ thống tự động kích hoạt một hệ số suy giảm (Damping factor) để triệt tiêu tức thời biên độ vận tốc tiếp cận ước lượng, đảm bảo cảnh báo nguy hiểm chỉ được phát ra khi có nguy cơ va chạm trực diện thực sự.
+
+3.4.4.	Module tính toán TTC (TTC Calculator)
+Phân hệ ước lượng Thời gian trước va chạm (Time-to-Collision - TTC) đóng vai trò là chốt chặn quyết định trong kiến trúc đánh giá rủi ro, cung cấp tham số định lượng trực tiếp số giây còn lại trước khi xảy ra va chạm. Để tối đa hóa độ tin cậy của tín hiệu cảnh báo, hệ thống triển khai cơ chế dung hợp thuật toán song song thông qua hai phương pháp tính toán độc lập. Phương pháp thứ nhất ước lượng TTC dựa trên hệ quy chiếu không gian vật lý (Distance-based TTC), được xác định bằng tỷ số giữa khoảng cách dọc hiện tại và vận tốc tiếp cận tương đối. Phương pháp thứ hai khai thác trực tiếp hiệu ứng giãn nở quang học trên mặt phẳng ảnh 2D (Scale-based TTC), tính toán thông qua tỷ số giữa diện tích hiện tại của hộp giới hạn và biến thiên vận tốc giãn nở diện tích (trích xuất từ biến trạng thái thứ 7 của bộ lọc Kalman). Cả hai luồng dữ liệu đều được bộ lọc phần mềm giới hạn (clamp) nghiêm ngặt trong dải giá trị hợp lệ từ 0.5 giây (va chạm cận kề) đến 20.0 giây (ngưỡng an toàn tối đa) nhằm ngăn chặn hiện tượng tràn số hoặc các điểm kỳ dị toán học (ví dụ: phép chia cho 0 khi vận tốc tiếp cận bị triệt tiêu).
+Trước tiên, hệ thống loại trừ hoàn toàn các đối tượng thuộc lớp biển báo giao thông (lớp 8) và đèn tín hiệu (lớp 9) khỏi chuỗi tính toán TTC. Đây là các vật thể hạ tầng tĩnh ven đường không thể gây va chạm; việc đưa chúng vào đánh giá rủi ro sẽ sinh ra cảnh báo giả khi xe chủ vào các đoạn đường cong có biển báo đặt sát lề.
+Nhằm bù trừ nhược điểm của từng phương pháp đo lường, hai giá trị TTC độc lập sau đó được tổng hợp thông qua một bộ lọc trung bình có trọng số (Weighted Average). Cụ thể, hệ thống phân bổ 70\% độ tin cậy cho phương pháp đo lường khoảng cách vật lý và 30\% cho phương pháp giãn nở quang học. Tuy nhiên, trước khi thực hiện phép tổng hợp, một cơ chế kiểm tra tính nhất quán (Sanity Check) được kích hoạt: nếu |TTC_scale – TTC_dist| > 2 giây, kết quả của phương pháp giãn nở quang học được đánh giá là không đáng tin cậy (do chuyển động ngang hoặc nhiễu Kalman trên đối tượng mới), và hệ thống tự động sử dụng 100\% giá trị TTC theo khoảng cách vật lý. Bên cạnh đó, thuật toán tích hợp sẵn một cơ chế dự phòng (fallback logic): trong trường hợp điều kiện môi trường khiến một trong hai phương pháp trả về giá trị phi logic (dấu âm hoặc vô cực), hệ thống sẽ tự động sử dụng 100\% giá trị hợp lệ từ phương pháp còn lại để đảm bảo luồng cảnh báo không bị gián đoạn. Cuối cùng, để triệt tiêu hoàn toàn hiện tượng dao động tín hiệu (flickering) sinh ra do sai số khung hình, chuỗi TTC tổng hợp được đưa qua bộ lọc trung bình động hàm mũ (EMA) với hệ số san bằng  . Đầu ra của quá trình làm mượt này định hình một đường cong TTC tuyến tính, đóng vai trò là tham số kích hoạt cốt lõi cho phân hệ giao diện người dùng (HUD) và luồng phản hồi âm thanh.
+3.4.5.	Module đánh giá rủi ro va chạm (Collision Risk)
+Phân hệ đánh giá rủi ro đóng vai trò là mắt xích logic cuối cùng của đường ống xử lý động học trước khi kết xuất tín hiệu ra giao diện cảnh báo. Để tối ưu hóa tài nguyên tính toán và triệt tiêu hoàn toàn hiện tượng cảnh báo giả (false positive) từ các phương tiện ở làn đường lân cận, hệ thống áp dụng bộ lọc không gian (Ego-Lane Filter). Theo đó, chỉ những đối tượng đã được phân hệ khoảng cách xác thực nằm trong hành lang di chuyển trực tiếp của xe chủ (với biên độ không gian tham chiếu  ) mới được phép đi vào ma trận đánh giá rủi ro.
+Đối với các mục tiêu hợp lệ trong làn đường, giá trị Thời gian trước va chạm (TTC) sẽ được đối chiếu với một hệ thống ngưỡng phân cấp thời gian nghiêm ngặt nhằm xác định 4 trạng thái cảnh báo lũy tiến: An toàn (SAFE), Chú ý (CAUTION - TTC dưới 5.0 giây), Nguy hiểm (DANGER - TTC dưới 3.0 giây) và Khẩn cấp (CRITICAL - TTC dưới 1.5 giây, yêu cầu thao tác phanh tức thời). Để phù hợp với điều kiện giao thông đô thị Việt Nam, hệ thống áp dụng thêm ngưỡng khoảng cách tối đa cho mức CAUTION: cảnh báo Chú ý chỉ được kích hoạt khi phương tiện đồng thời có TTC < 5 giây VÀ khoảng cách < 12m. Mức DANGER và CRITICAL không áp dụng giới hạn khoảng cách vì tốc độ tiếp cận cao ở bất kỳ cự ly nào cũng là tình huống khẩn cấp. Tuy nhiên, trong điều kiện nhiễu động môi trường thực tế, sự dao động vi phân của các tham số nhận diện có thể khiến trạng thái rủi ro nhảy bậc liên tục, gây ra hiện tượng nhấp nháy tín hiệu (flickering) làm phân tâm người lái. Để giải quyết triệt để bài toán này, đề tài tích hợp cơ chế đồng thuận thời gian (Temporal Smoothing) với số khung hình tối thiểu khác nhau theo mức cấp độ: mức CRITICAL yêu cầu 2 khung hình liên tiếp (phản hồi nhanh ~0.25 giây tại 8 FPS), mức DANGER yêu cầu 4 khung hình (~0.5 giây, giảm cảnh báo giả do nhiễu tốc độ cao), mức CAUTION yêu cầu 3 khung hình (~0.37 giây). Thuật toán làm mượt trên cửa sổ trượt 5 khung hình gần nhất bổ sung thêm lớp bảo vệ. Cơ chế ràng buộc phân cấp này giúp hệ thống phản ứng nhanh với nguy hiểm thực sự trong khi vẫn lọc được các cảnh báo giả do nhiễu đo lường tức thời.
+3.5.	QUẢN LÝ TRẠNG THÁI VÀ TỐI ƯU HÓA LUỒNG THỰC THI
+Phần này trình bày các kỹ thuật hệ thống đảm bảo pipeline chạy mượt và không gây nghẽn.
+3.5.1.	Module cảnh báo đa luồng (Warning system)
+Trong các kiến trúc phần mềm đơn luồng truyền thống, quá trình gọi hàm phát tín hiệu âm thanh thường mang tính chất đồng bộ (blocking), buộc toàn bộ đường ống thị giác máy tính phải tạm dừng để chờ card âm thanh xử lý xong, dẫn đến sự sụt giảm FPS nghiêm trọng và làm mất đi đặc tính thời gian thực của hệ thống an toàn. Khắc phục triệt để điểm yếu này, phân hệ cảnh báo của đề tài được tách biệt hoàn toàn thành một luồng thực thi nền (Background Audio Thread) hoạt động bất đồng bộ với luồng nhận diện chính (Main Detection Thread). Cơ chế giao tiếp liên tiến trình (Inter-thread Communication) giữa hai luồng này được thiết lập thông qua các nguyên thủy đồng bộ hóa (Synchronization Primitives) của C++ chuẩn bao gồm khóa loại trừ lẫn nhau (Mutex) và biến điều kiện (Condition Variable). Bất cứ khi nào luồng nhận diện phân tích ra một mức độ rủi ro mới, nó sẽ cấp phát tín hiệu đánh thức (notify) thông qua biến điều kiện để luồng âm thanh tiếp nhận trạng thái và ngay lập tức nhả khóa bộ nhớ, cho phép camera thu nhận khung hình tiếp theo mà không chịu bất kỳ độ trễ nào.
+Tuy nhiên, nếu phát âm thanh liên tục dựa trên FPS của camera (ví dụ 30 lần mỗi giây), người lái sẽ phải hứng chịu hiện tượng dội âm (audio spam) gây hoảng loạn và ức chế tâm lý. Nhằm tinh chỉnh trải nghiệm tương tác người máy (HMI), thuật toán quản lý tích hợp một cơ chế khoảng nghỉ (Cooldown Interval) phân bổ tuyến tính theo mức độ nguy hiểm. Cụ thể, cảnh báo mức Chú ý (CAUTION) chỉ được phát lặp lại sau mỗi chu kỳ 2000ms; mức Nguy hiểm (DANGER) có nhịp độ dồn dập hơn ở mức 800ms}; trong khi mức Khẩn cấp (CRITICAL) ép thời gian hồi chiêu xuống cực ngắn chỉ 400ms}, tạo ra chuỗi âm thanh ngắt quãng liên tục mang tính hối thúc cao.
+Nhằm đảm bảo khả năng triển khai linh hoạt (Cross-platform), bộ mã thực thi âm thanh được trừu tượng hóa bằng cơ chế biên dịch có điều kiện. Trên môi trường phát triển Windows, hệ thống nội suy sử dụng hàm Beep() của nền tảng với các dải tần số (frequency) thay đổi theo mức độ rủi ro. Khi triển khai xuống phần cứng biên Jetson Nano (nhân Linux L4T), mã nguồn tự động chuyển đổi sang việc gọi lệnh hệ thống aplay để giải mã và kết xuất trực tiếp các tệp âm thanh .wav độc lập ra loa phần cứng, khép lại một chu trình cảnh báo chính xác, kịp thời và không gây suy hao hiệu năng tính toán lõi.
+3.5.2.	Module hiển thị trực quan (Visualization – HUD Overlay)
+Phân hệ hiển thị trực quan (Visualization Module) đảm nhận vai trò giao tiếp trực tiếp với người lái thông qua việc kết xuất các tham số động học trừu tượng thành một lớp phủ đồ họa (Head-Up Display - HUD) ngay trên luồng video thời gian thực. Đối với từng phương tiện được bám sát, hệ thống nội suy và kết xuất các hộp giới hạn bao quanh đối tượng, đi kèm với nhãn dữ liệu chi tiết bao gồm mã định danh (Track ID), khoảng cách không gian (mét), chỉ số TTC (giây) và trạng thái di chuyển hiện tại. Nhằm tối ưu hóa thời gian phản xạ nhận thức của người lái, hệ thống áp dụng cơ chế mã hóa màu sắc (Color-coding) linh hoạt cho các hộp giới hạn theo dải quang phổ cảnh báo lũy tiến: Xanh lục (An toàn), Vàng (Chú ý), Cam (Nguy hiểm) và Đỏ (Khẩn cấp). Sự thay đổi màu sắc theo thời gian thực này cho phép người lái đánh giá nhanh chóng mức độ đe dọa của từng mục tiêu mà không cần phân tích các con số hiển thị.
+Bên cạnh các thông số gắn liền với đối tượng đích, hệ thống giao diện còn tích hợp các biểu đồ phân tích không gian nâng cao nhằm tăng cường nhận thức tình huống (Situation Awareness). Một vùng cảnh báo nguy hiểm động (Dynamic Danger Zone) được chiếu phối cảnh trực tiếp xuống mặt đường, với diện tích và độ sâu tự động co giãn tỷ lệ thuận với vận tốc hiện tại của xe chủ (kết xuất từ dữ liệu cảm biến OXTS). Ở lớp thông tin ngoài cùng, một bảng điều khiển tổng thể (Dashboard Panel) được neo cố định tại góc màn hình, chịu trách nhiệm cập nhật liên tục thông số tốc độ xe chủ, hiệu năng xử lý phần cứng (FPS) và cảnh báo mức độ rủi ro cao nhất của toàn bộ khung cảnh, khép lại một chu trình tương tác toàn diện và chuyên nghiệp.
+3.5.3.	Module điều phối tổng thể (Pipeline Orchestrator)
+Nhằm đảm bảo sự đồng bộ tuyệt đối về mặt thời gian và dữ liệu giữa các phân hệ độc lập, kiến trúc phần mềm được đặt dưới sự kiểm soát của một phân hệ điều phối trung tâm (Pipeline Orchestrator). Phân hệ này đóng vai trò là "nhạc trưởng", chịu trách nhiệm khởi tạo tài nguyên bộ nhớ, quản lý vòng đời của các tiến trình và điều tiết dòng dữ liệu (Data flow) đi qua một chu trình khép kín gồm 10 giai đoạn tại mỗi chu kỳ quét khung hình.
+Vòng lặp thực thi bắt đầu bằng việc giải mã khung hình phần cứng từ camera, sau đó tín hiệu được luân chuyển tuần tự qua mạng nơ-ron nhận diện (YOLOv8) và thuật toán liên kết quỹ đạo (SORT) để bóc tách các đặc trưng không gian. Ở giai đoạn phân tích động học tiếp theo, hệ thống khai thác mốc thời gian thực (Hardware Timestamp) để đồng bộ hóa các phép tính khoảng cách và vận tốc. Đặc biệt, phân hệ điều phối tích hợp sẵn một cơ sở dữ liệu ảo để chủ động nạp tham số vận tốc tức thời của xe chủ ( ) thông qua bộ giải mã định vị động học OXTS (từ tập dữ liệu KITTI), tạo nên hệ quy chiếu chính xác tuyệt đối cho phép tính Thời gian trước va chạm (TTC). Dựa trên các ma trận rủi ro được tổng hợp, đường ống dữ liệu sẽ rẽ nhánh (branching) để kích hoạt tín hiệu âm thanh bất đồng bộ, đồng thời kết xuất đồ họa đa lớp (HUD) lên màn hình giám sát. Đối với các thiết bị hiển thị tại biên, ma trận ảnh đầu ra được nội suy lại về độ phân giải chuẩn 1024 x 600 để tối ưu hóa trường nhìn của người lái trước khi được ghi xuất vào bộ nhớ đệm video lưu trữ.
+Điểm nhấn kỹ thuật đáng chú ý nhất trong cấu trúc điều phối này là việc tích hợp cơ chế giám sát hiệu năng vi phân (Scoped Timer Profiling). Tại mỗi mắt xích của đường ống (tiền xử lý, suy diễn GPU, tính toán động học,…), hệ thống tự động chèn các chốt đo đạc thời gian thực thi ở cấp độ mili-giây. Cơ chế giám sát nội tại này không chỉ đảm bảo độ trễ của từng module không vượt quá hạn mức thời gian thực (Real-time constraints) mà còn cung cấp cơ sở dữ liệu hồ sơ (Profiling data) quan trọng giúp kỹ sư đánh giá chính xác các nút thắt cổ chai (bottlenecks) phát sinh trong quá trình cấp phát tài nguyên giữa CPU và GPU.
+3.5.4.	Giao diện đồ họa người dùng
+Để đảm bảo hiệu suất tính toán tối đa cho các tác vụ suy diễn học sâu trên nền tảng nhúng, đề tài áp dụng triết lý thiết kế "headless execution" – tách biệt hoàn toàn giao diện điều khiển khỏi luồng xử lý chính. Thay vì tích hợp một thư viện đồ họa GUI (Graphic User Interface) cồng kềnh trực tiếp vào mã nguồn C++, hệ thống sử dụng một script điều phối trung gian (launcher.sh) dựa trên công cụ Zenity của hệ điều hành Ubuntu. Công cụ này đóng vai trò là lớp vỏ (wrapper) cung cấp menu tương tác cho người dùng cuối trong việc lựa chọn các chế độ vận hành (như thu nhận luồng từ Camera CSI, tệp video thử nghiệm hoặc dữ liệu dataset chuẩn).
+Thiết kế này mang lại ưu thế tuyệt đối về mặt tài nguyên hệ thống. Khi người dùng xác nhận lựa chọn, script khởi chạy sẽ đóng lại hoàn toàn, giải phóng toàn bộ tài nguyên CPU và GPU để phục vụ 100% cho đường ống xử lý AI. Mọi overhead phát sinh từ vòng lặp xử lý sự kiện đồ họa (event loop) của các thư viện GUI (như Qt hay GTK) đều được loại bỏ triệt để. Kết quả thực nghiệm trên phần cứng Jetson Nano cho thấy, việc cô lập phân hệ hiển thị ra khỏi tiến trình C++ lõi giúp cải thiện hiệu suất từ 7-8 FPS lên mức 8-9 FPS (tương đương mức tăng trưởng hiệu năng 15%), một con số có ý nghĩa quyết định đối với các hệ thống cảnh báo va chạm yêu cầu độ trễ cực thấp tại biên. Sau khi kết thúc chu trình xử lý, script điều phối tự động tái kích hoạt menu lựa chọn, cho phép người dùng vận hành các phiên test tiếp theo mà không cần phải tương tác lại với môi trường Terminal hệ thống.
+3.6.	TỔNG KẾT CẤU TRÚC MÃ NGUỒN
+Bảng 3.1 tổng hợp toàn bộ các module trong hệ thống, file mã nguồn tương ứng và chức năng chính:
+Bảng 3.1: Tổng hợp cấu trúc module mã nguồn C++
+Module	File mã nguồn chính	Chức năng
+Camera	camera.h, camera.cpp	Thu nhận ảnh từ camera CSI thông qua GStreamer, quản lý bộ đệm và đồng bộ khung hình
+Preprocessing	image_preprocess.h, image_preprocess.cpp	Letterbox, chuyển đổi BGR→RGB, chuẩn hóa dữ liệu và chuyển đổi HWC→CHW
+Detection	yolov8_detector.h, yolov8_detector.cpp	Thực hiện suy luận YOLOv8 bằng TensorRT hoặc ONNX Runtime
+NMS	nms.h, nms.cpp	Loại bỏ các bounding box chồng lấp bằng thuật toán Non-Maximum Suppression
+Tracking	object_tracker.h, object_tracker.cpp	Theo dõi nhiều đối tượng bằng thuật toán SORT
+Track	track.h, track.cpp	Quản lý trạng thái từng đối tượng với bộ lọc Kalman 7 trạng thái
+Hungarian	hungarian.h, hungarian.cpp	Ghép nối detection–track tối ưu bằng thuật toán Hungarian
+Distance Estimation	distance_estimator.h, distance_estimator.cpp	Ước lượng khoảng cách bằng mô hình camera pinhole, EMA và lọc theo làn đường
+Camera Model	camera_model.h	Khai báo tham số nội tại của camera theo bộ dữ liệu KITTI
+BEV Distance	bev_distance.h, bev_distance.cpp	Ước lượng khoảng cách bằng phép biến đổi Bird's Eye View
+Speed Estimator	speed_estimator.h, speed_estimator.cpp	Ước lượng tốc độ tương đối của đối tượng dựa trên chuỗi khoảng cách theo thời gian
+KITTI OXTS Reader	kitti_oxts_reader.h, kitti_oxts_reader.cpp	Đọc vận tốc xe chủ từ dữ liệu GPS/IMU của KITTI
+TTC Calculator	ttc_calculator.h, ttc_calculator.cpp	Tính toán Time-to-Collision theo nhiều phương pháp
+Collision Risk	collision_risk.h, collision_risk.cpp	Phân loại mức độ nguy hiểm va chạm
+Risk State	risk_state.h	Định nghĩa enum và cấu trúc dữ liệu cho trạng thái rủi ro
+Warning System	warning_system.h, warning_system.cpp	Phát cảnh báo âm thanh đa luồng theo mức độ nguy hiểm
+Visualization	visualization.h, visualization.cpp	Hiển thị bounding box, khoảng cách, tốc độ và TTC trên khung hình
+Traffic Sign Processor	traffic_sign_processor.h, traffic_sign_processor.cpp	Nhận diện và phân loại biển báo giao thông (mô-đun phụ)
+Pipeline	pipeline.h, pipeline.cpp	Điều phối luồng xử lý chính của hệ thống
+Threaded Pipeline	threaded_pipeline.h, threaded_pipeline.cpp	Phiên bản đa luồng nhằm tối ưu hiệu năng xử lý thời gian thực
+Launcher	scripts/launcher.sh	Khởi chạy hệ thống qua menu Zenity (thay thế GUI C++)
+Logger	logger.h, logger.cpp	Ghi log hệ thống và thông tin thực thi
+Timer	timer.h, timer.cpp	Đo thời gian thực thi và FPS
+Math Utils	math_utils.h	Các hàm toán học hỗ trợ như IoU, EMA, clamp và chuyển đổi đơn vị
+Tổng cộng: ~25 file header + ~20 file implementation, xấp xỉ 8000 dòng code C++ thuần. 
+CHƯƠNG 4:	KẾT QUẢ THỰC NGHIỆM VÀ THẢO LUẬN 
+Chương này trình bày các kết quả thu được sau khi hoàn thiện hệ thống cảnh báo va chạm phía trước. Nội dung đánh giá được chia thành hai nhóm chính. Nhóm thứ nhất là kết quả trực quan khi hệ thống hoạt động trên luồng video hoặc camera, bao gồm khả năng phát hiện phương tiện, theo dõi đối tượng, hiển thị khoảng cách, ước lượng TTC và đưa ra cảnh báo theo từng mức độ rủi ro. Nhóm thứ hai là kết quả đánh giá định lượng, trong đó đầu ra của hệ thống được so sánh với dữ liệu thực tế do bộ dữ liệu KITTI cung cấp thông qua tracklet ground truth và dữ liệu OXTS.
+4.1.	MÔI TRƯỜNG VÀ DỮ LIỆU THỰC NGHIỆM
+Quá trình kiểm thử được triển khai song song trên hai nền tảng: máy tính cá nhân (sử dụng backend ONNX Runtime để đối soát dữ liệu ngoại tuyến) và bo mạch nhúng NVIDIA Jetson Nano (sử dụng TensorRT FP16 nhằm tối đa hóa tốc độ suy diễn thời gian thực). Về mặt dữ liệu, đề tài sử dụng bộ dữ liệu BDD100K để huấn luyện mạng YOLOv8s, đồng thời khai thác nhãn tọa độ không gian 3D (Tracklets) và dữ liệu cảm biến (OXTS) từ bộ KITTI Raw làm hệ quy chiếu chuẩn (Ground Truth) để đo lường sai số khoảng cách, vận tốc và TTC.
+Bảng 4.1: Cấu hình môi trường thực nghiệm
+Thành phần	Cấu hình / Vai trò
+Nền tảng nhúng	NVIDIA Jetson Nano 4GB, GPU 128-core Maxwell
+Nền tảng phát triển	Máy tính cá nhân (Desktop PC), sử dụng ONNX Runtime để kiểm thử và đánh giá
+Ngôn ngữ lập trình	C++17
+Thư viện xử lý ảnh	OpenCV
+Backend suy diễn trên Desktop	ONNX Runtime
+Backend suy diễn trên Jetson Nano	TensorRT FP16
+Mô hình phát hiện đối tượng	YOLOv8s huấn luyện trên bộ dữ liệu BDD100K
+Dữ liệu huấn luyện	BDD100K (70K train / 10K val)
+Dữ liệu đánh giá	KITTI Raw Dataset kết hợp Tracklets và OXTS Ground Truth (25 drives)
+Tốc độ video KITTI	10 FPS
+4.2.	HIỆU NĂNG CỦA MÔ HÌNH NHẬN DIỆN YOLO8s TRÊN BDD100K
+4.2.1.	Kết quả kiểm thử trên tập validation BDD100K
+Mô hình YOLOv8s được huấn luyện 100 epoch trên 70.000 ảnh của tập BDD100K (kích thước đầu vào 640×640) và đánh giá trên 10.000 ảnh validation. Quá trình huấn luyện áp dụng các kỹ thuật tăng cường dữ liệu như Mosaic (1.0), MixUp (0.15) và HSV để tăng tính tổng quát hóa.
+Kết quả kiểm thử (trình bày tại Bảng 4.2 và Hình 4.1) cho thấy sự phân hóa rõ rệt do chênh lệch số lượng mẫu. Mô hình đạt độ chính xác (mAP@0.5) cao nhất ở lớp car (82,9% với hơn 101.000 mẫu). Các lớp traffic sign và traffic light cũng đạt kết quả tốt (trên 71%). Ngược lại, lớp train đạt 0% do thiếu hụt dữ liệu trầm trọng (chỉ có 14 mẫu). Các lớp motor và rider có hiệu năng thấp (khoảng 54-57%) do ít mẫu và hình dạng dễ bị che khuất.
+Bảng 4.2: Kết quả kiểm thử mô hình YOLOv8s trên BDD100K validation set
+Lớp đối tượng	Số mẫu validation	mAP@0.5 (%)	mAP@0.5:0.95 (%)
+Person	13085	70.8	41.7
+Bike	1000	56.8	32.6
+Car	101893	82.9	58.3
+Motor	447	54.3	30.1
+Rider	646	57.8	33.8
+Bus	1597	66.8	56.2
+Train	14	0	0
+Truck	4233	66.3	53.0
+Traffic Sign	33914	73.1	45.4
+Traffic Light	24869	71.2	33.1
+Tổng (All)	10000	60.0	38.4
+Về cấu hình triển khai thực tế, hệ thống chốt sử dụng Confidence threshold là 0.45 và NMS threshold là 0.50. Đây là mức tối ưu qua thực nghiệm giúp cân bằng tốt nhất giữa việc giảm thiểu cảnh báo giả (Precision) và hạn chế bỏ sót phương tiện (Recall).
+ 
+Hình 4.1: Kết quả mAP theo từng lớp đối tượng của YOLOv8s trên BDD100K validation set
+4.2.2.	So sánh hiệu năng suy diễn  giữa Desktop và Jetson Nano
+Sau khi xuất mô hình sang định dạng ONNX với kích thước đầu vào 768×448, hiệu năng suy diễn được đo lường trên cả hai nền tảng: máy tính Desktop sử dụng ONNX Runtime CPU và bo mạch Jetson Nano sử dụng TensorRT FP16. Việc đo lường trên cả hai nền tảng cho phép đánh giá toàn diện sự đánh đổi giữa tính di động (Jetson) và tính linh hoạt phát triển (Desktop).
+Bảng 4.3: So sánh hiệu năng suy diễn YOLOv8s (768×448) giữa hai nền tảng
+Thành phần xử lý	Desktop 
+(ONNX Runtime CPU)	Jetson Nano 
+(TensorRT FP16)
+YOLOv8s Inference	~150 ms/frame	~110 ms/frame
+Tracking + Distance + TTC	~3 ms/frame	~2 ms/frame
+Visualization	~8 ms/frame	~4 ms/frame
+Tổng Pipeline	~160 ms/frame	~115 ms/frame
+FPS thực tế	~6–7 FPS	~8–9 FPS
+Tỷ lệ tăng tốc so với Desktop	1.0× (Baseline)	~1.4× (TensorRT FP16)
+Phân tích hồ sơ thời gian (Profiling) chỉ ra rằng khâu suy diễn mô hình AI cấu thành điểm nghẽn cổ chai (bottleneck) chính khi chiếm tới hơn 90% tổng thời lượng xử lý của toàn bộ hệ thống. Các thuật toán hậu xử lý phức tạp như Hungarian, Kalman Filter hay Pinhole Camera nhờ được tối ưu hóa luồng C++ nên chỉ tiêu tốn vỏn vẹn dưới 3ms (tương đương <3% chu kỳ). Việc sử dụng backend TensorRT FP16 trên Jetson Nano đã kéo giảm thành công 27% độ trễ suy diễn (từ 150ms xuống 110ms), giúp hệ thống tăng tốc 1.4 lần và duy trì ổn định tốc độ quét khung hình ở mức 8-9 FPS, đủ điều kiện đáp ứng ngưỡng phản ứng thời gian thực cho các kịch bản cảnh báo tiền va chạm.
+4.3.	KẾT QUẢ HOẠT ĐỘNG TRỰC QUAN CỦA HỆ THỐNG
+Phân hệ hiển thị trực quan (HUD Overlay) minh chứng cho sự tích hợp xuyên suốt của toàn bộ đường ống thuật toán (từ nhận diện YOLOv8, theo dõi SORT đến nội suy khoảng cách Pinhole). Giao diện thời gian thực đã ánh xạ thành công các thông số vật lý phức tạp (khoảng cách, mã định danh, TTC, tốc độ xe chủ) và hành lang an toàn động (Dynamic Danger Zone) trực tiếp lên khung hình video. Cơ chế đánh giá rủi ro hoạt động mượt mà, phản hồi chính xác qua sự biến thiên màu sắc theo 4 cấp độ:
+Trạng thái An toàn (SAFE): Khi phương tiện ở xa hoặc nằm ngoài không gian di chuyển dự kiến của xe chủ, hệ thống duy trì bám sát với viền xanh. Điều này chứng minh bộ lọc không gian (Ego-lane filter) đã hoạt động hiệu quả, giúp triệt tiêu hoàn toàn các cảnh báo giả từ xe đi ở làn lân cận. (Chèn Hình 4.1: Giao diện hệ thống ở trạng thái SAFE)
+Trạng thái Chú ý (CAUTION): Khi TTC bắt đầu suy giảm chạm mốc cảnh báo sớm, viền nhận diện lập tức chuyển vàng để điều hướng sự tập trung của người lái, chuẩn bị cho các tình huống phát sinh nhưng chưa yêu cầu can thiệp phanh. (Chèn Hình 4.2: Giao diện hệ thống ở trạng thái CAUTION)
+Trạng thái Nguy hiểm & Khẩn cấp (DANGER / CRITICAL): Khi phương tiện phía trước phanh gấp hoặc khoảng cách suy giảm nghiêm trọng, giao diện chuyển sang dải màu Cam/Đỏ khẩn cấp. Ở ngưỡng này, bộ điều phối hệ thống ngay lập tức kích hoạt luồng cảnh báo âm thanh bất đồng bộ (Multi-threading Audio), tạo ra chuỗi phản hồi thính giác hối thúc mà không gây ra bất kỳ độ trễ (FPS drop) nào cho luồng thị giác cốt lõi. (Chèn Hình 4.3: Giao diện hệ thống ở trạng thái DANGER) (Chèn Hình 4.4: Giao diện hệ thống ở trạng thái CRITICAL)
+Sự ổn định của giao diện kết xuất đồ họa này đã khẳng định độ tin cậy của chuỗi thuật toán xử lý luồng, tạo cơ sở vững chắc để đề tài tiếp tục đối soát mức độ sai số định lượng (Quantitative Error) với dữ liệu gốc của KITTI ở các phần tiếp theo.
+4.4.	PHƯƠNG PHÁP ĐÁNH GIÁ ĐỊNH LƯỢNG VỚI KITTI DATASET
+Để đo lường độ chính xác của hệ thống, đề tài sử dụng dữ liệu KITTI Raw làm hệ quy chiếu chuẩn (Ground Truth - GT). Cụ thể, tọa độ không gian (tx, ty) trích xuất từ nhãn 3D (tracklet_labels.xml) được dùng để đối chiếu sai số khoảng cách; trong khi đó, dữ liệu cảm biến quán tính (OXTS) cung cấp vận tốc tuyệt đối của xe chủ. Do vận tốc xe chủ được lấy trực tiếp từ cảm biến (sai số tiệm cận 0), khâu đánh giá sẽ tập trung hoàn toàn vào sai số ước lượng khoảng cách và vận tốc tiếp cận của phương tiện phía trước.
+Để đảm bảo tính khách quan cho cấu hình camera đơn mắt (Monocular), quá trình đánh giá chỉ tập trung vào nhóm phương tiện mục tiêu cốt lõi của FCW (Car, Van, Truck, Tram). Đồng thời, các nhãn GT không đủ điều kiện quan sát tin cậy sẽ bị hệ thống tự động loại bỏ thông qua bộ lọc khắt khe sau:
+Bảng 4.4: Tiêu chí lọc ground truth khi đánh giá với KITTI
+Tiêu chí	Mục đích
+Loại bỏ state = 1	Loại bỏ các đối tượng được nội suy (interpolated), không xuất hiện rõ ràng trong khung hình
+Loại bỏ occlusion ≥ 2	Loại bỏ các đối tượng bị che khuất nghiêm trọng, khó quan sát và khó phát hiện
+Loại bỏ truncation ≥ 2	Loại bỏ các đối tượng bị cắt biên đáng kể bởi vùng ảnh
+Loại bỏ tx ≤ 0	Loại bỏ các đối tượng nằm phía sau xe hoặc phía sau camera
+Loại bỏ đối tượng quá xa	Giới hạn đánh giá trong phạm vi hoạt động thực tế của hệ thống cảnh báo va chạm phía trước (FCW)
+Loại bỏ projected height < 25 px	Loại bỏ các đối tượng có kích thước ảnh quá nhỏ, không đủ ổn định để phát hiện chính xác
+Loại bỏ đối tượng ngoài FOV	Loại bỏ các đối tượng nằm ngoài trường quan sát (Field of View) của camera
+Chỉ giữ nhóm phương tiện	Chỉ đánh giá các đối tượng thuộc nhóm phương tiện (Car, Van, Truck, Tram), phù hợp mục tiêu cảnh báo va chạm phía trước
+Hiệu năng của hệ thống được đánh giá toàn diện qua hai nhóm chỉ số. Nhóm thứ nhất đánh giá khả năng nhận diện bằng tỷ lệ phủ (Recall) và độ chính xác (Precision). Nhóm thứ hai đo lường biên độ sai số vật lý thông qua Sai số tuyệt đối trung bình (MAE), Căn bậc hai sai số toàn phương (RMSE) và Sai số phần trăm trung bình (MAPE). Các công thức được định nghĩa như sau:
+ 
+ 
+ 
+ 
+Trong đó: TP (True Positive): Số đối tượng hệ thống phát hiện và khớp đúng với GT; FP (False Positive): Số đối tượng hệ thống nhận diện nhưng không tồn tại trong GT (Báo động giả); FN (False Negative): Số đối tượng có trong GT nhưng hệ thống bỏ sót;  : Giá trị khoảng cách thực tế (Ground Truth) từ KITTI;  : Giá trị khoảng cách do mô hình Pinhole của hệ thống ước lượng; n: Tổng số lượng mẫu được đối khớp thành công.
+4.5.	KẾT QUẢ ĐÁNH GIÁ CỦA HỆ THỐNG
+4.5.1.	Kết quả đánh giá khả năng phát hiện phương tiện
+Quá trình đối soát chéo trên 25 kịch bản giao thông (sequences) của bộ dữ liệu KITTI cho thấy hệ thống đạt độ tin cậy rất cao trong không gian vận hành thực tế của FCW. Cụ thể, sau khi đi qua bộ lọc Ground Truth, hệ thống đạt tỷ lệ phủ (Recall) ở mức 93.4% và độ chính xác (Precision) chạm ngưỡng 99.1%.
+Mức Precision tiệm cận tuyệt đối (99.1%) chứng minh sự hiệu quả đột phá của việc kết hợp YOLOv8 với thuật toán bám sát mục tiêu (SORT) và bộ lọc không gian (Ego-path filter). Chuỗi kết hợp này giúp triệt tiêu gần như hoàn toàn các cảnh báo giả (False Positives). Song song đó, mức Recall 93.4% đảm bảo hệ thống luôn bắt dính các mục tiêu quan trọng, không bỏ lỡ cơ hội kích hoạt cảnh báo sớm cho người lái.
+ 
+Hình 4.2: Biểu đồ Recall và Precision theo từng đoạn KITTI
+Sự phân bổ hiệu năng chi tiết được minh họa trực quan tại Hình 4.2. Phần lớn các kịch bản đạt Recall trên 90% và Precision 100% (điển hình như drive_0061 hay drive_0023 với tỷ lệ nhận diện đúng gần như tuyệt đối). Tuy nhiên, đồ thị cũng phản ánh một số điểm sụt giảm tại các kịch bản đặc thù như drive_0028 (Recall 65%) hay drive_0091 (Recall 50%). Qua phân tích chuyên sâu, các khung hình trong những đoạn này thường chứa phương tiện nằm ở cự ly rất xa, kích thước điểm ảnh nhỏ hoặc bị che khuất nghiêm trọng. Sự suy giảm này phản ánh đúng giới hạn vật lý nội tại của cấu trúc camera đơn mắt (Monocular Camera) khi khuyết thiếu chiều sâu không gian so với cảm biến Lidar hay Radar.
+Bảng 4.5: Một số đoạn KITTI có kết quả phát hiện tốt
+Drive Sequence	GT Object-Frame	Matched	Recall (%)	Precision (%)
+2011_09_26_drive_0061	406	405	99.8	100.0
+2011_09_26_drive_0023	229	227	99.1	100.0
+2011_09_26_drive_0084	371	366	98.7	100.0
+2011_09_26_drive_0064	239	232	97.1	99.1
+2011_09_26_drive_0005	93	91	97.8	100.0
+4.5.2.	Kết quả ước lượng khoảng cách
+Khoảng cách dọc là biến số hạt nhân quyết định tính chính xác của thuật toán ngoại suy TTC. Để tối ưu hóa giới hạn của camera đơn mắt, hệ thống áp dụng mô hình Pinhole Camera đối chiếu chéo với bảng phân loại chiều cao tham chiếu (Class-specific Object Height), kết hợp cùng bộ lọc hàm mũ (EMA Smoothing) để ổn định tọa độ.
+Kết quả đối khớp trên toàn bộ 25 kịch bản (Hình 4.4) cho thấy đường hồi quy tuyến tính tiệm cận sát với hệ số góc bằng 1. Tổng thể, hệ thống duy trì biên độ sai lệch rất khả quan với Sai số tuyệt đối trung bình (MAE) đạt 2.19 m và Căn sai số toàn phương (RMSE) ở mức 2.97 m. Mức sai số này được xem là rất ấn tượng đối với một hệ thống ADAS thị giác máy tính không có sự can thiệp đo lường bằng sóng (Lidar/Radar).
+ 
+Hình 4.3: So sánh khoảng cách Ground Truth và ước lượng theo từng frame 
+ 
+Hình 4.4: Biểu đồ tán xạ khoảng cách ước lượng vs. Ground Truth – tổng hợp 25 đoạn
+Tuy nhiên, sự phân hóa độ chính xác giữa các kịch bản diễn ra khá rõ rệt. Ở các kịch bản lý tưởng, nơi phương tiện di chuyển ở cự ly vừa phải và hộp giới hạn (Bounding box) bám sát mục tiêu, hệ thống cho ra kết quả ước lượng gần như trùng khớp với dữ liệu Ground Truth. Chi tiết các kịch bản đạt hiệu năng tối ưu nhất được liệt kê tại Bảng 4.5:
+Bảng 4.6: Ví dụ kết quả khoảng cách trên một số drive tốt
+Drive Sequence	MAE (m)	RMSE (m)	Mean % Error (%)
+2011_09_26_drive_0048	0.75	1.11	5.0
+2011_09_26_drive_0061	1.38	1.84	8.7
+2011_09_26_drive_0064	1.46	2.10	7.6
+2011_09_26_drive_0001	1.60	2.14	6.8
+Ngược lại, tại các kịch bản phức tạp như drive_0028, sai số vọt lên mức 7.24 m. Sự đột biến sai số này phản ánh đúng bản chất hình học của mô hình Pinhole ( ). Khi đối tượng ở cự ly quá xa, chiều cao điểm ảnh (h) trên khung hình sẽ co lại rất nhỏ. Lúc này, chỉ một gợn nhiễu dao động rất bé (pixels) do YOLOv8 cắt thiếu viền xe cũng sẽ khiến mẫu số của phương trình biến thiên mạnh, kéo theo sai lệch hàng chục mét trên thực tế.
+ 
+Hình 4.5: Biểu đồ MAE khoảng cách theo từng đoạn KITTI
+4.5.3.	Kết quả ước lượng vận tốc tiếp cận và tính TTC
+Vận tốc tiếp cận được tính bằng hồi quy tuyến tính chuỗi khoảng cách theo thời gian thực (timestamp). Cách làm này giúp triệt tiêu hoàn toàn sai số do sụt giảm FPS đột ngột trên Jetson Nano. Kết quả cho thấy sai số vận tốc tuyệt đối trung bình (MAE) đạt 2.68 m/s. Do bản chất phép đạo hàm, sai số khoảng cách dù nhỏ cũng sẽ bị khuếch đại khi tính vận tốc. Điều này lý giải việc các kịch bản khó bị sai lệch vận tốc khá cao, trong khi các kịch bản lý tưởng vẫn duy trì MAE vận tốc rất thấp, chỉ từ 0.98 – 1.39 m/s.
+ 
+Hình 4.6: Biểu đồ Velocity MAE theo từng đoạn KITTI
+Dựa trên dữ liệu khoảng cách và vận tốc, chỉ số Thời gian trước va chạm (TTC) được tính toán để kích hoạt cảnh báo. Để loại bỏ cảnh báo giả, hệ thống chỉ ghi nhận TTC hợp lệ khi phương tiện phía trước thực sự tiến lại gần (vận tốc tiếp cận dương). Các giá trị TTC sau đó được chia thành 4 mức cảnh báo hiển thị trên giao diện (HUD), phù hợp với thời gian phản xạ thực tế của người lái: SAFE (An toàn), CAUTION (< 5.0s), DANGER (< 3.0s) và CRITICAL (< 1.5s).
+4.5.4.	Hiệu năng thời gian thực của hệ thống
+Khả năng đáp ứng thời gian thực là thước đo sống còn đối với mọi hệ thống FCW. Khi vận hành trên Jetson Nano với backend TensorRT FP16 (đầu vào 768×448), hệ thống ghi nhận độ trễ toàn trình (e2e latency) ở mức 115 ms/frame, tương đương 8 - 9 FPS.
+Hồ sơ phân bổ tài nguyên (Profiling) chỉ ra điểm nghẽn cổ chai (bottleneck) hoàn toàn nằm ở khâu suy diễn YOLOv8s (chiếm ~92% tổng thời gian). Toàn bộ chuỗi hậu xử lý phức tạp bao gồm theo dõi (SORT), tính khoảng cách, TTC, logic cảnh báo và kết xuất HUD chỉ tiêu tốn chưa đến 5% (khoảng 5 ms). Điều này chứng minh các thuật toán hình học đã được tối ưu hóa xuất sắc cho nền tảng nhúng; hướng nâng cấp FPS trong tương lai chỉ cần tập trung duy nhất vào việc thu gọn mạng nơ-ron hoặc nâng cấp vi kiến trúc GPU.
+ 
+Hình 4.7: Phân bổ thời gian xử lý pipeline FCW trên Jetson Nano và Desktop
+Mặc dù tốc độ 8 - 9 FPS thấp hơn mức 30 FPS nguyên bản của camera, hệ thống vẫn đáp ứng hoàn hảo tiêu chuẩn cảnh báo tiền va chạm nhờ hai cơ chế kỹ thuật cốt lõi:
+Cơ chế xả đệm (Buffer Drain): Liên tục dọn dẹp các khung hình cũ bị tồn đọng ở tầng phần cứng, đảm bảo luồng hình ảnh đưa vào YOLOv8 luôn là hình ảnh mới nhất, triệt tiêu độ trễ trôi dạt (drifting latency).
+Tham chiếu thời gian thực (Timestamp-based): Việc tính toán dựa trên timestamp giúp hệ thống miễn nhiễm với hiện tượng sụt giảm FPS đột biến.
+Về mặt động học, ở vận tốc lên tới 80 km/h, tốc độ quét 8-9 FPS đồng nghĩa với việc hệ thống sẽ cập nhật trạng thái cứ sau mỗi 2.5 mét di chuyển. Khoảng cách lấy mẫu này, khi kết hợp cùng bộ lọc EMA, vẫn thừa khả năng kích hoạt mức cảnh báo DANGER (TTC < 3.0s) sớm hơn hàng giây so với ngưỡng phản xạ phanh của con người. Do đó, hệ thống hoàn toàn khả thi để vận hành an toàn trong điều kiện thực tế dù bị giới hạn bởi tài nguyên của vi điều khiển biên.
+4.6.	THẢO LUẬN
+Qua chuỗi kiểm thử định tính và định lượng, có thể khẳng định hệ thống FCW đã đáp ứng trọn vẹn mục tiêu đề tài: Xây dựng thành công một đường ống (pipeline) cảnh báo va chạm theo thời gian thực vận hành ổn định trên nền tảng nhúng có tài nguyên hạn chế. Điểm sáng lớn nhất của hệ thống nằm ở năng lực nhận diện phương tiện ấn tượng (Recall 93.4%, Precision 99.1%) được đối chuẩn chéo với dữ liệu không gian 3D (Tracklets) và viễn trắc (OXTS) từ hệ quy chiếu KITTI. Sự kết hợp giữa kiến trúc YOLOv8, thuật toán bám sát mục tiêu SORT và mô hình ngoại suy Pinhole đã chứng minh được tính khả thi trong việc "bình dân hóa" công nghệ ADAS, phục vụ công tác nâng cấp (retrofit) cho các dòng xe phổ thông không được trang bị cảm biến đắt tiền.
+Tuy nhiên, quá trình triển khai thực tế trên vi điều khiển Jetson Nano đòi hỏi sự đánh đổi khắt khe về kỹ thuật (Trade-off). Cụ thể, việc lựa chọn độ phân giải đầu vào cho YOLOv8s quyết định trực tiếp đến sự sống còn của toàn bộ hệ thống. Qua thực nghiệm (Hình 4.8), kích thước nguyên bản 960x544 mang lại chi tiết hình ảnh tốt nhưng kéo tụt FPS xuống mức không thể chấp nhận (~5 FPS). Trong khi đó, việc ép kiểu về kích thước vuông 640x640 (chuẩn huấn luyện) giúp tối ưu FPS nhưng lại bóp méo tỷ lệ khung hình 16:9 của camera, phá vỡ hoàn toàn nguyên lý toán học của mô hình Pinhole. Do đó, kích thước 768x448 đã được lựa chọn làm điểm rơi lý tưởng (Sweet spot), giúp giảm 58% lượng điểm neo (anchor points) tính toán, đẩy FPS lên ngưỡng an toàn (8-9 FPS) mà vẫn duy trì độ toàn vẹn hình học không gian, đảm bảo khả năng nội suy phương tiện ở cự ly lên đến 50 mét.
+ 
+Hình 4.8: So sánh thời gian inference và FPS theo độ phân giải đầu vào
+Bên cạnh những kết quả tích cực, hệ thống hiện tại mang trong mình giới hạn bản chất của công nghệ thị giác máy tính đơn mắt (Monocular Vision). Khác với công nghệ Radar hay Lidar đo đạc bằng sóng phản xạ, camera đơn mắt ước lượng khoảng cách hoàn toàn thông qua việc đếm số lượng điểm ảnh (pixels) cấu thành nên hộp giới hạn 2D. Do đó, hệ thống đặc biệt nhạy cảm với sai số nhận diện: ở cự ly xa, việc YOLOv8 cắt lẹm vài pixel ở phần gầm hoặc trần xe sẽ lập tức gây ra sự biến thiên hàng chục mét trên thực tế. Sai số khoảng cách này kéo theo hiệu ứng hòn tuyết lăn (snowball effect), trực tiếp làm sai lệch kết quả đạo hàm vận tốc tiếp cận và chỉ số thời gian TTC. Mặc dù đề tài đã tích hợp hàng loạt bộ lọc giảm nhiễu chuyên sâu (Kalman Filter, EMA Smoothing, Sticky Lock) để kìm hãm sự dao động, mức độ ổn định của hệ thống về mặt bản chất vật lý vẫn không thể sánh ngang với các cảm biến chủ động.
+Tựu trung lại, hệ thống đề xuất hoàn toàn phù hợp để đóng vai trò là một trợ lý ảo hỗ trợ người lái cơ bản với chi phí tối thiểu. Để thương mại hóa, cấu trúc phần cứng cần được nâng cấp (ví dụ: chuyển đổi sang Jetson Orin Nano) hoặc ứng dụng công nghệ hợp nhất dữ liệu cảm biến (Sensor Fusion) với Radar/CAN Bus nhằm giải quyết triệt để bài toán điểm mù không gian của camera đơn mắt.
+
+4.7.	TỔNG KẾT CHƯƠNG
+ 
+Hình 4.9: Dashboard tổng kết các chỉ số đánh giá hệ thống FCW
+Chương 4 đã khép lại quá trình kiểm định toàn diện hệ thống FCW trên cả hai phương diện: trực quan giao diện thời gian thực và đo lường sai số định lượng với bộ dữ liệu KITTI. Toàn bộ các chỉ số hiệu năng cốt lõi của đường ống thuật toán được tổng hợp trực quan tại Hình 4.9.
+Chuỗi kết quả này khẳng định luận điểm cốt lõi của đề tài: Giải pháp kết hợp camera đơn mắt, mô hình học sâu YOLOv8 và các bộ lọc hình học (Pinhole, EMA) hoàn toàn có thể cấu thành một hệ thống cảnh báo tiền va chạm khả thi, đáp ứng tiêu chuẩn an toàn cơ bản trên nền tảng nhúng chi phí thấp như Jetson Nano. Đồng thời, những điểm nghẽn về tốc độ khung hình (FPS) và sai số cố hữu ở cự ly xa của camera đơn mắt được mổ xẻ trong chương này chính là tiền đề thực tiễn để đề tài mở ra các hướng tối ưu hóa và nâng cấp phần cứng ở Chương 5.
+CHƯƠNG 5:	KẾT LUẬN VÀ HƯỚNG PHÁT TRIỂN
+5.1.	KẾT LUẬN
+Khóa luận tốt nghiệp với đề tài "Hệ thống cảnh báo va chạm phía trước dựa trên phát hiện và theo dõi xe phía trước và ước lượng thời gian va chạm trên Jetson Nano" đã hoàn thành trọn vẹn các mục tiêu, nhiệm vụ nghiên cứu đặt ra ban đầu. Đề tài đã giải quyết thành công bài toán tích hợp giữa mô hình học sâu hiện đại và các thuật toán động học vật lý để tạo nên một hệ thống hỗ trợ lái xe ADAS có tính thực tiễn cao. Những kết quả chính mà đề tài đã đạt được bao gồm:
+Nghiên cứu và làm chủ lý thuyết: Đề tài đã hệ thống hóa cơ sở lý thuyết về các phân hệ ADAS, cơ chế hoạt động của mạng YOLOv8, thuật toán theo dõi SORT, mô hình hình học Pinhole Camera ước lượng khoảng cách đơn mắt và mô hình tính toán thời gian va chạm nguy hiểm (TTC).
+Xây dựng thành công pipeline phần mềm tối ưu: Thiết kế và hiện thực hóa hoàn chỉnh chuỗi xử lý bằng ngôn ngữ C++17 thuần túy. Hệ thống đã tận dụng sức mạnh phần cứng của GPU Maxwell trên Jetson Nano thông qua backend TensorRT FP16, giúp tối ưu hóa thời gian suy diễn của mô hình YOLOv8s xuống còn xấp xỉ 120 ms/khung hình. Các kiến trúc đa luồng (Multi-threading) cũng được áp dụng hiệu quả để triệt tiêu độ trễ.
+Đánh giá thực nghiệm định lượng khách quan: Hệ thống đã được kiểm thử nghiêm ngặt trên 25 chuỗi video của bộ dữ liệu quốc tế KITTI, đối chiếu trực tiếp với dữ liệu tham chiếu mặt đất (Ground Truth). Kết quả đạt Recall 93.4%, Precision 99.1%, sai số tuyệt đối trung bình (MAE) về khoảng cách đạt 2.19 m và sai số vận tốc tiếp cận đạt 2.68 m/s.
+Kết quả của đề tài là minh chứng cho thấy khả năng triển khai các thuật toán thị giác máy tính phức tạp lên các thiết bị nhúng giá thành thấp, mở ra cơ hội nâng cấp (retrofit) tính năng an toàn cho các dòng xe ô tô đời cũ một cách kinh tế.
+
+5.2.	HẠN CHẾ CỦA ĐỀ TÀI
+Hệ thống hiện tại vẫn mang một số giới hạn do phần cứng và bản chất công nghệ:
+Điểm mù của camera đơn mắt: Thiếu cảm biến chiều sâu khiến hệ thống cực kỳ nhạy cảm với sai số hộp giới hạn 2D. Đặc biệt khi xe ở xa (>30m) hoặc bị che khuất, một sai lệch nhỏ ở cấp độ pixel cũng bị khuếch đại thành sai số hình học lớn.
+Nút thắt phần cứng: Bo mạch Jetson Nano thế hệ cũ chỉ đáp ứng tốc độ quét 8-9 FPS, chưa đạt độ mượt mà lý tưởng của các hệ thống ADAS thương mại chuyên dụng.
+Nhiễu lan truyền (Error Propagation): Sai lệch từ việc ước lượng khoảng cách sẽ bị khuếch đại khi đạo hàm ra vận tốc tiếp cận, đôi khi gây dao động (jittering) trong việc phân loại mức cảnh báo TTC.
+5.3.	HƯỚNG PHÁT TRIỂN
+Nâng cấp nền tảng phần cứng nhúng: Chuyển đổi mã nguồn sang các dòng bo mạch nhúng thế hệ mới như Jetson Orin Nano để đẩy tốc độ suy diễn đạt mức 30 FPS, đồng thời sử dụng các phiên bản YOLOv8 lớn hơn để tăng độ chính xác.
+Tích hợp công nghệ hợp nhất dữ liệu cảm biến (Sensor Fusion): Kết hợp camera đơn mắt với Radar sóng milimet (mmWave Radar) để loại bỏ hoàn toàn điểm yếu sai số khoảng cách của camera, giúp tính toán TTC chính xác ngay cả ban đêm hay trời mưa.
+Kết nối trực tiếp hệ thống động học của xe thật: Hiện thực hóa việc đọc vận tốc xe chủ thông qua cổng chẩn đoán lỗi OBD-II hoặc mạng giao tiếp CAN Bus của ô tô thực tế thay vì sử dụng dữ liệu giả lập từ KITTI.
+Mở rộng tập dữ liệu huấn luyện: Thu thập dữ liệu và tinh chỉnh (fine-tune) lại mô hình với các bối cảnh giao thông phức tạp đặc trưng của Việt Nam (kẹt xe, xe máy tạt đầu, mưa lớn...) để tăng cường độ bền vững của toàn hệ thống.
+TÀI LIỆU THAM KHẢO
+
+[1]	IIHS, "Front crash prevention slashes police-reported rear-end crashes," Insurance Institute for Highway Safety, Jan. 2016. [Online]. Available: https://www.iihs.org/news/detail/front-crash-prevention-slashes-police-reported-rear-end-crashes.
+[2]	Cục Đăng kiểm Việt Nam, "Tổng hợp số liệu phương tiện giao thông trong cả nước," Cổng thông tin điện tử Cục Đăng kiểm Việt Nam, 2023. [Online]. Available: https://www.vr.org.vn/thong-ke.
+[3]	National Highway Traffic Safety Administration (NHTSA), "Forward Collision Warning (FCW) System Confirmation Test," U.S. Department of Transportation, Feb. 2013. [Online]. Available: https://www.nhtsa.gov/sites/nhtsa.dot.gov/files/documents/ncap_fcw_confirmation_test_feb2013.pdf.
+[4]	ISO 15623:2013, "Intelligent transport systems — Forward vehicle collision warning systems — Performance requirements and test procedures," International Organization for Standardization, Geneva, Switzerland, 2013.
+[5]	Jocher, G., Chaurasia, A., and Qiu, J., "Ultralytics YOLOv8", 2023.
+[6]	Neubeck, A. and Van Gool, L., "Efficient Non-Maximum Suppression", 18th International Conference on Pattern Recognition (ICPR), 2006.
+[7]	Bewley, A., Ge, Z., Ott, L., Ramos, F., and Upcroft, B., "Simple Online and Realtime Tracking", IEEE ICIP, 2016. 
+
