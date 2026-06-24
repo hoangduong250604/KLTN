@@ -68,3 +68,4 @@ debug_trace.txt
 # Temporary files
 *.tmp
 *.bak
+fcw_jetson/
