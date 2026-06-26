@@ -217,6 +217,8 @@ void ThreadedPipeline::processingThread() {
 
         // Step 4: Speed (timestamp-based)
         float timestampMs = camera_.getPositionMs();
+        // Set ego speed: fixed config value or 50 km/h fallback for real-world use
+        speedEstimator_.setEgoSpeed(cfg.fixedEgoSpeedKmh >= 0.0f ? cfg.fixedEgoSpeedKmh : 50.0f);
         std::unordered_map<int, SpeedInfo> speeds;
         if (cfg.enableDistance && !distances.empty()) {
             utils::ScopedTimer st(timer_, "speed");
