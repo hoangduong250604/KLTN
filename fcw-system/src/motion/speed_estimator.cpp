@@ -51,7 +51,7 @@ std::unordered_map<int, SpeedInfo> SpeedEstimator::estimate(
         history.framesSeen++;
         history.currentDistance = distInfo.smoothedDistance;
 
-        // Store samples (for regression fallback & Kalman warm-start)
+        // Store samples (for regression fallback & warm-start)
         history.distanceSamples.push_back(distInfo.smoothedDistance);
         history.timeSamples.push_back(timestampMs);
         while (static_cast<int>(history.distanceSamples.size()) > config_.regressionWindow) {
@@ -61,19 +61,69 @@ std::unordered_map<int, SpeedInfo> SpeedEstimator::estimate(
 
         // ── Speed estimation ────────────────────────────────────────────────────
         float smoothedClosingSpeed = 0.0f;
+        float h_px = static_cast<float>(distInfo.bbox.height);
 
-        if (config_.useKalmanSpeed) {
-            // ── Method A: Kalman filter [D, v_closing] ──────────────────────────
-            KalmanSpeedState& ks = history.kalman;
+        if (config_.usePixelKalman && h_px > 1.0f) {
+            // ── Method A: Pixel-space Kalman [h, dh/dt] ─────────────────────────
+            // Measurement noise R = σ_h² = 4 px² (constant — homoscedastic)
+            // v_closing = D_smooth * (dh_kalman / h_kalman)
+            // TTC_direct = h_kalman / dh_kalman  (H_real-independent)
+            KalmanBboxState& kb = history.kalmanBbox;
 
-            if (!ks.initialized) {
+            if (!kb.initialized) {
                 if (history.distanceSamples.size() < 2) {
-                    // Need 2 frames for warm-start velocity estimate
                     info.valid = true;
                     newSpeeds[trackId] = info;
                     continue;
                 }
-                // Warm-start: initial velocity from first 2-frame distance difference
+                // Warm-start dh from D history: dh/dt = (h/D) * v_closing_init
+                float D_now  = history.distanceSamples.back();
+                float D_prev = history.distanceSamples[history.distanceSamples.size() - 2];
+                float t_prev = history.timeSamples[history.timeSamples.size() - 2];
+                float dt_init = std::max(0.001f, (timestampMs - t_prev) / 1000.0f);
+                float v_init  = (D_prev - D_now) / dt_init;   // + = approaching
+
+                kb.h  = h_px;
+                // dh/dt = (h/D) * v_closing   (from D=fy*H/h → dD/dt = -(D/h)*dh/dt)
+                kb.dh = utils::clamp((h_px / std::max(D_now, 0.1f)) * v_init,
+                                     -300.0f, 300.0f);
+                kb.P[0] = config_.kalmanBboxInitVarH;  kb.P[1] = 0.0f;
+                kb.P[2] = 0.0f;  kb.P[3] = config_.kalmanBboxInitVarDH;
+                kb.lastTimestampMs = timestampMs;
+                kb.initialized     = true;
+
+                smoothedClosingSpeed = utils::clamp(v_init, -config_.maxSpeed, config_.maxSpeed);
+
+            } else {
+                float dt = (timestampMs - kb.lastTimestampMs) / 1000.0f;
+                kb.lastTimestampMs = timestampMs;
+
+                if (dt > 2.0f) {
+                    kb.initialized = false;
+                    info.valid = true;
+                    newSpeeds[trackId] = info;
+                    continue;
+                }
+                if (dt > 0.005f) kalmanBboxPredict(kb, dt);
+                kalmanBboxUpdate(kb, h_px);
+
+                // v_closing = D_smooth * dh/h
+                float h_sm = std::max(kb.h, 1.0f);
+                smoothedClosingSpeed = distInfo.smoothedDistance * kb.dh / h_sm;
+                smoothedClosingSpeed = utils::clamp(smoothedClosingSpeed,
+                                                    -config_.maxSpeed, config_.maxSpeed);
+            }
+
+        } else if (config_.useKalmanSpeed) {
+            // ── Method B: D-space Kalman [D, v_closing] ─────────────────────────
+            KalmanSpeedState& ks = history.kalman;
+
+            if (!ks.initialized) {
+                if (history.distanceSamples.size() < 2) {
+                    info.valid = true;
+                    newSpeeds[trackId] = info;
+                    continue;
+                }
                 float D_now  = history.distanceSamples.back();
                 float D_prev = history.distanceSamples[history.distanceSamples.size() - 2];
                 float t_prev = history.timeSamples[history.timeSamples.size() - 2];
@@ -92,21 +142,18 @@ std::unordered_map<int, SpeedInfo> SpeedEstimator::estimate(
                 ks.lastTimestampMs = timestampMs;
 
                 if (dt > 2.0f) {
-                    // Gap too large (track lost & reacquired) → reset Kalman
                     ks.initialized = false;
                     info.valid = true;
                     newSpeeds[trackId] = info;
                     continue;
                 }
-                if (dt > 0.005f) {
-                    kalmanPredict(ks, dt);
-                }
-                kalmanUpdate(ks, distInfo.smoothedDistance);
+                if (dt > 0.005f) kalmanPredict(ks, dt);
+                kalmanUpdate(ks, distInfo.smoothedDistance, h_px);
                 smoothedClosingSpeed = ks.v;
             }
 
         } else {
-            // ── Method B: Weighted linear regression + median filter ─────────────
+            // ── Method C: Weighted linear regression + median filter ─────────────
             if (static_cast<int>(history.distanceSamples.size()) < 3) {
                 info.valid = true;
                 newSpeeds[trackId] = info;
@@ -226,7 +273,77 @@ std::unordered_map<int, SpeedInfo> SpeedEstimator::estimate(
 }
 
 // ==============================================================================
-// Method A — Kalman Predict Step
+// Method A — Pixel-space Kalman: Predict
+// ==============================================================================
+// State: x = [h_px, dh/dt]   F = [[1, dt], [0, 1]]
+//   h_new  = h + dh*dt
+//   dh_new = dh   (constant velocity; acceleration is process noise)
+// Q = sigmaA² * [[dt⁴/4, dt³/2], [dt³/2, dt²]]
+// ==============================================================================
+void SpeedEstimator::kalmanBboxPredict(KalmanBboxState& s, float dt) const {
+    // Predict state
+    s.h = s.h + s.dh * dt;
+    // s.dh unchanged
+
+    // P_new = F*P*F^T + Q
+    const float sa  = config_.kalmanBboxSigmaA;
+    const float dt2 = dt * dt;
+    const float dt3 = dt2 * dt;
+    const float dt4 = dt2 * dt2;
+
+    // F*P  (F = [[1,dt],[0,1]])
+    float fp00 = s.P[0] + dt * s.P[2];
+    float fp01 = s.P[1] + dt * s.P[3];
+    float fp10 = s.P[2];
+    float fp11 = s.P[3];
+
+    // (F*P)*F^T + Q  (F^T = [[1,0],[dt,1]])
+    float q00 = sa * sa * dt4 / 4.0f;
+    float q01 = sa * sa * dt3 / 2.0f;
+    float q11 = sa * sa * dt2;
+
+    s.P[0] = fp00 + dt * fp01 + q00;
+    s.P[1] = fp01             + q01;
+    s.P[2] = fp10 + dt * fp11 + q01;
+    s.P[3] = fp11             + q11;
+}
+
+// ==============================================================================
+// Method A — Pixel-space Kalman: Update
+// ==============================================================================
+// Measurement: z = h_meas,  H = [1, 0],  R = σ_h² (constant, px²)
+//   S = P[0] + R
+//   K = [P[0], P[2]]^T / S
+//   x += K * (z - h_predicted)
+//   P = (I - K*H) * P
+// ==============================================================================
+void SpeedEstimator::kalmanBboxUpdate(KalmanBboxState& s, float hMeas) const {
+    float R = config_.kalmanBboxMeasNoise;
+    float S = s.P[0] + R;
+    if (S < 1e-6f) S = 1e-6f;
+
+    float K0 = s.P[0] / S;
+    float K1 = s.P[2] / S;
+
+    float innov = hMeas - s.h;
+    s.h  += K0 * innov;
+    s.dh += K1 * innov;
+    s.dh  = utils::clamp(s.dh, -500.0f, 500.0f);
+
+    // P = (I - K*H) * P
+    float p00 = s.P[0], p01 = s.P[1];
+    float p10 = s.P[2], p11 = s.P[3];
+    s.P[0] = (1.0f - K0) * p00;
+    s.P[1] = (1.0f - K0) * p01;
+    s.P[2] = p10 - K1 * p00;
+    s.P[3] = p11 - K1 * p01;
+
+    if (s.P[0] < 1e-3f) s.P[0] = 1e-3f;
+    if (s.P[3] < 1e-3f) s.P[3] = 1e-3f;
+}
+
+// ==============================================================================
+// Method B — D-space Kalman: Predict
 // ==============================================================================
 // State transition: F = [[1, -dt], [0, 1]]
 //   D_new = D - v*dt
@@ -234,8 +351,6 @@ std::unordered_map<int, SpeedInfo> SpeedEstimator::estimate(
 //
 // Process noise (Singer constant-acceleration model):
 //   Q = sigma_a^2 * [[dt^4/4, dt^3/2], [dt^3/2, dt^2]]
-//
-// P_new = F*P*F^T + Q  (expanded for 2x2, no external library needed)
 // ==============================================================================
 void SpeedEstimator::kalmanPredict(KalmanSpeedState& s, float dt) const {
     const float sa  = config_.kalmanSigmaA;
@@ -273,16 +388,16 @@ void SpeedEstimator::kalmanPredict(KalmanSpeedState& s, float dt) const {
 }
 
 // ==============================================================================
-// Method A — Kalman Update Step
+// Method B — D-space Kalman: Update
 // ==============================================================================
-// Measurement model: z = D_measured, H = [1, 0]
-//   S = H*P*H^T + R = P[0] + R
-//   K = P*H^T / S = [P[0], P[2]]^T / S
-//   x += K * (z - D_predicted)
-//   P = (I - K*H) * P
+// Measurement: z = D_measured,  H = [1, 0]
+//   R = kalmanMeasNoise (constant; ≈ (0.8m)² = 0.64 m²)
+//   S = P[0] + R,  K = P*H^T / S
+//   x += K*(z - D_pred),  P = (I - K*H)*P
 // ==============================================================================
-float SpeedEstimator::kalmanUpdate(KalmanSpeedState& s, float measuredDist) const {
-    float S  = s.P[0] + config_.kalmanMeasNoise;
+float SpeedEstimator::kalmanUpdate(KalmanSpeedState& s, float measuredDist, float /*h_px*/) const {
+    float R = config_.kalmanMeasNoise;
+    float S  = s.P[0] + R;
     if (S < 1e-6f) S = 1e-6f;
 
     float K0 = s.P[0] / S;   // Kalman gain for D state
@@ -308,7 +423,7 @@ float SpeedEstimator::kalmanUpdate(KalmanSpeedState& s, float measuredDist) cons
 }
 
 // ==============================================================================
-// Method B — Weighted Linear Regression
+// Method C — Weighted Linear Regression
 // ==============================================================================
 // w_i = exp(-lambda * age_seconds)   (recent samples get higher weight)
 // Weighted least-squares on (t, d) samples → slope = dd/dt

@@ -37,7 +37,22 @@ enum class VehicleState {
 };
 
 // ---------------------------------------------------------------------------
-// 2-state Kalman filter: x = [distance (m), closing_speed (m/s)]
+// Method A — Pixel-space Kalman: x = [h_px, dh/dt]
+// h_px  = bbox height in pixels, dh/dt in px/s (positive = growing = approaching)
+// Measurement noise R = σ_h² ≈ (2px)² = 4 px²  — constant everywhere (homoscedastic)
+// v_closing derived as: v = D_smooth * (dh/h)   (no H_real needed for v itself)
+// TTC direct:  TTC = h / dh  (purely from pixel divergence, H_real-independent)
+// ---------------------------------------------------------------------------
+struct KalmanBboxState {
+    float h  = 0.0f;                              // Estimated bbox height (px)
+    float dh = 0.0f;                              // dh/dt (px/s), + = growing = approaching
+    float P[4] = {100.0f, 0.0f, 0.0f, 400.0f};  // 2×2 covariance, row-major
+    bool  initialized     = false;
+    float lastTimestampMs = -1.0f;
+};
+
+// ---------------------------------------------------------------------------
+// Method B — D-space Kalman: x = [distance (m), closing_speed (m/s)]
 // Covariance P stored row-major: [P00, P01, P10, P11]
 // ---------------------------------------------------------------------------
 struct KalmanSpeedState {
@@ -71,15 +86,23 @@ struct SpeedConfig {
     float hardBrakeThreshold    = -3.0f;      // m/s²
 
     // ── Speed estimation method ──────────────────────────────────────────────
-    bool  useKalmanSpeed        = true;       // true = Kalman [D,v]; false = weighted regression
+    bool  usePixelKalman        = false;      // Method A: pixel-space Kalman [h, dh/dt] (experimental)
+    bool  useKalmanSpeed        = true;       // Method B: D-space Kalman [D, v] (default — best)
+                                              // false for both → Method C: weighted regression
 
-    // Kalman parameters (Method A)
+    // Method A — Pixel-space Kalman [h, dh/dt]  (best: homoscedastic noise)
+    float kalmanBboxSigmaA      = 10.0f;     // Process noise: bbox height accel std (px/s²)
+    float kalmanBboxMeasNoise   = 4.0f;      // R = σ_h² ≈ (2px)² — constant everywhere
+    float kalmanBboxInitVarH    = 100.0f;    // Initial P00 (px²)
+    float kalmanBboxInitVarDH   = 400.0f;    // Initial P11 ((px/s)²)
+
+    // Method B — D-space Kalman [D, v]  (previous default)
     float kalmanSigmaA          = 2.0f;       // Process noise: accel std dev (m/s²)
     float kalmanMeasNoise       = 0.64f;      // Measurement variance R (m²) ~= (0.8m)^2
     float kalmanInitVarD        = 4.0f;       // Initial distance variance P00 (m²)
     float kalmanInitVarV        = 25.0f;      // Initial velocity variance P11 ((m/s)^2)
 
-    // Weighted regression parameters (Method B)
+    // Method C — Weighted regression  (fallback)
     float regressionLambda      = 0.8f;       // Exp decay rate (1/s); higher = more weight on recent
 };
 
@@ -130,17 +153,22 @@ private:
         int   movingFrames     = 0;
         bool  lockedStationary = false;
 
-        KalmanSpeedState kalman;               // 2-state Kalman [D, v_closing]
+        KalmanBboxState  kalmanBbox;           // Method A: pixel-space Kalman [h, dh/dt]
+        KalmanSpeedState kalman;               // Method B: D-space Kalman [D, v_closing]
     };
 
     std::unordered_map<int, TrackSpeedHistory> trackHistory_;
     std::unordered_map<int, SpeedInfo>         trackSpeeds_;
 
-    // Method A: Kalman filter operations
-    void  kalmanPredict(KalmanSpeedState& s, float dt) const;
-    float kalmanUpdate(KalmanSpeedState& s, float measuredDist) const;
+    // Method A: Pixel-space Kalman [h, dh/dt]
+    void  kalmanBboxPredict(KalmanBboxState& s, float dt) const;
+    void  kalmanBboxUpdate(KalmanBboxState& s, float hMeas) const;
 
-    // Method B: Weighted linear regression
+    // Method B: D-space Kalman [D, v] with adaptive R(D) for heteroscedastic noise
+    void  kalmanPredict(KalmanSpeedState& s, float dt) const;
+    float kalmanUpdate(KalmanSpeedState& s, float measuredDist, float h_px) const;
+
+    // Method C: Weighted linear regression
     float computeRegressionSpeed(const std::deque<float>& distances,
                                  const std::deque<float>& times,
                                  float& outVariance) const;
