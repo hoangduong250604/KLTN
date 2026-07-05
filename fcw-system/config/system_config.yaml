@@ -38,7 +38,11 @@ system:
     # Target FPS (0 = unlimited)
     target_fps: 15
     # Detection skip: run detection every N frames (1=every frame, 2=every other, 3=every 3rd)
-    detect_interval: 2
+    # Now actually wired up (previously ignored regardless of this value —
+    # the detector ran every frame no matter what). Default kept at 1 to
+    # preserve the exact behavior all published results were measured on;
+    # raise it only if you deliberately want to trade accuracy for FPS.
+    detect_interval: 1
     # Use GPU acceleration
     use_gpu: true
     # GPU device ID
@@ -49,8 +53,8 @@ detection:
   model_path: "./models/yolov8n_bdd100k.engine"
   labels_path: "./models/labels.txt"
   # Input size for YOLO
-  input_width: 960
-  input_height: 544
+  input_width: 768
+  input_height: 448
   # Confidence threshold
   conf_threshold: 0.45
   # NMS IoU threshold

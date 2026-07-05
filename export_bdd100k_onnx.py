@@ -83,8 +83,8 @@ def main():
     cls = yaml.safe_load(open(cls_yaml, encoding='utf-8'))
     print(f"Classes ({len(cls)}): {cls}")
     
-    # Input size - use 960x544 (original training resolution)
-    input_h, input_w = 544, 960
+    # Input size - reduced for better FPS (~10 FPS on CPU)
+    input_h, input_w = 448, 768
     shape = [input_h, input_w]
     
     print(f"Loading model from {weight_path}...")
@@ -124,6 +124,13 @@ def main():
     # Verify
     size_mb = os.path.getsize(onnx_path) / 1024 / 1024
     print(f"Export done! Size: {size_mb:.1f} MB")
+
+    # Also export for fcw_jetson (same model, named for trtexec convenience)
+    jetson_onnx_path = 'fcw_jetson/models/yolov8s_bdd100k.onnx'
+    import shutil
+    os.makedirs(os.path.dirname(jetson_onnx_path), exist_ok=True)
+    shutil.copy2(onnx_path, jetson_onnx_path)
+    print(f"Copied to {jetson_onnx_path} for Jetson trtexec")
     
     # Update labels.txt
     labels_path = 'fcw-system/models/labels.txt'

@@ -59,6 +59,13 @@ public:
      */
     std::vector<Track*> update(const DetectionResult& detections);
 
+    /**
+     * Predict-only step: advance all tracks using Kalman prediction
+     * without associating new detections. Used for frame skipping.
+     * Tracks keep moving smoothly without getting penalized as "lost".
+     */
+    std::vector<Track*> predictOnly();
+
     /** Get all active tracks (confirmed only) */
     std::vector<Track*> getActiveTracks() const;
 

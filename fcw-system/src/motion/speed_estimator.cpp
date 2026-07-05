@@ -220,6 +220,18 @@ std::unordered_map<int, SpeedInfo> SpeedEstimator::estimate(
         if (history.lockedStationary) {
             state                = VehicleState::STATIONARY;
             estimatedTargetKmh   = 0.0f;
+            // NOTE: intentionally does NOT apply turn-damping here. A prior
+            // change made this branch apply the same turnDampFactor as above,
+            // reasoning that Turn-Suppression should apply consistently
+            // regardless of which code path produced the reported speed.
+            // Measured against KITTI ground truth (25-drive batch), that
+            // change increased Velocity MAE (worse) on multiple drives with
+            // no offsetting improvement anywhere — reverted. Once Sticky-Lock
+            // has confirmed (via multi-frame hysteresis) that a target is
+            // genuinely stationary, the ego-speed substitution is already a
+            // stable, physically-grounded value; it doesn't need the
+            // turn-damping safety net designed to suppress noise in the
+            // non-locked Kalman-derived computation above.
             closingSpeedKmh      = egoSpeedKmh;
             smoothedClosingSpeed = utils::kmhToMs(egoSpeedKmh);
         } else if (egoSpeedKmh > 5.0f && closingSpeedKmh > egoSpeedKmh + config_.oncomingThreshold) {

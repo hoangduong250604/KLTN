@@ -118,6 +118,18 @@ std::vector<Track*> ObjectTracker::update(const DetectionResult& detections) {
 }
 
 // ==============================================================================
+// Predict Only (for frame skipping - no association, no lost penalty)
+// ==============================================================================
+std::vector<Track*> ObjectTracker::predictOnly() {
+    for (auto& track : tracks_) {
+        if (!track->isDeleted()) {
+            track->predict();
+        }
+    }
+    return getActiveTracks();
+}
+
+// ==============================================================================
 // Cost Matrix Computation
 // ==============================================================================
 std::vector<std::vector<float>> ObjectTracker::computeCostMatrix(

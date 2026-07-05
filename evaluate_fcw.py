@@ -685,6 +685,13 @@ def generate_report(drive_name: str, metrics: Dict, detection_metrics: Dict,
             f.write(f"  {obj_type:<15} {data['gt_count']:<10} {data['matched']:<10} "
                     f"{data['recall']*100:.1f}%\n")
         f.write("\n")
+        f.write("  NOTE: matching allows cross-class attribution within the vehicle\n")
+        f.write("  super-category (Car/Van/Truck are mutually compatible, see\n")
+        f.write("  is_class_compatible()) since KITTI's own type boundaries are fuzzy.\n")
+        f.write("  This is a 'was a vehicle detected here' recall per GT type, not a\n")
+        f.write("  strict single-class recall — a Car GT matched by a 'truck'-labeled\n")
+        f.write("  system detection still counts here.\n")
+        f.write("\n")
         
         # Distance Estimation
         f.write("3. DISTANCE ESTIMATION ACCURACY\n")
@@ -940,6 +947,13 @@ def main():
         if total_relevant > 0:
             print(f"  Overall Precision:           {total_matches/total_relevant*100:.1f}%")
         if all_dist_errors:
+            # NOTE: this is a POOLED/sample-weighted mean (every individual
+            # per-sample error across all drives, concatenated) — drives with
+            # more matched samples contribute proportionally more. This
+            # differs from plot_thesis_charts.py's df["distance_mae"].mean(),
+            # which is an UNWEIGHTED mean of each drive's own MAE (every
+            # drive counts equally regardless of sample count). The two will
+            # not generally agree — know which one a cited number came from.
             print(f"  Overall Distance MAE:        {np.mean([abs(e) for e in all_dist_errors]):.2f} m")
             print(f"  Overall Distance RMSE:       {np.sqrt(np.mean(np.array(all_dist_errors)**2)):.2f} m")
         if all_vel_errors:
